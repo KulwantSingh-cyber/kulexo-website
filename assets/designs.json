@@ -1,0 +1,127 @@
+{
+  "version": "1.0",
+  "platform": "KULEXO",
+  "designs": [
+    {
+      "id": "kulexo-001",
+      "name": "Modern Performance Jersey",
+      "category": "Cricket",
+      "type": "Vector",
+      "collection": "Performance",
+      "status": "published",
+      "access": "free",
+      "featured": true,
+      "description": "A clean, professional performance jersey concept created for modern cricket teams, apparel brands and competitive sportswear collections.",
+      "preview": "assets/designs/kulexo-001-preview.svg",
+      "detailPage": "design-detail.html",
+      "license": "coming-soon",
+      "tags": [
+        "cricket",
+        "jersey",
+        "sportswear",
+        "performance",
+        "vector"
+      ]
+    },
+    {
+      "id": "kulexo-002",
+      "name": "Elite Football Kit",
+      "category": "Football",
+      "type": "Vector",
+      "collection": "Elite",
+      "status": "published",
+      "access": "free",
+      "featured": true,
+      "description": "A modern football kit concept designed for professional teams and contemporary sportswear collections.",
+      "preview": "assets/designs/kulexo-002-preview.svg",
+      "detailPage": "design-detail.html",
+      "license": "coming-soon",
+      "tags": [
+        "football",
+        "kit",
+        "sportswear",
+        "vector"
+      ]
+    },
+    {
+      "id": "kulexo-003",
+      "name": "Premium Gold Concept",
+      "category": "Basketball",
+      "type": "AI Ready",
+      "collection": "Premium",
+      "status": "published",
+      "access": "premium",
+      "featured": true,
+      "description": "A premium basketball concept built for high-end apparel and creative sportswear projects.",
+      "preview": "assets/designs/kulexo-003-preview.svg",
+      "detailPage": "design-detail.html",
+      "license": "coming-soon",
+      "tags": [
+        "basketball",
+        "premium",
+        "sportswear",
+        "ai-ready"
+      ]
+    },
+    {
+      "id": "kulexo-004",
+      "name": "Velocity Performance",
+      "category": "Esports",
+      "type": "Vector",
+      "collection": "Performance",
+      "status": "published",
+      "access": "free",
+      "featured": false,
+      "description": "A bold performance concept created for modern competitive esports apparel.",
+      "preview": "assets/designs/kulexo-004-preview.svg",
+      "detailPage": "design-detail.html",
+      "license": "coming-soon",
+      "tags": [
+        "esports",
+        "performance",
+        "gaming",
+        "vector"
+      ]
+    },
+    {
+      "id": "kulexo-005",
+      "name": "Urban Team Collection",
+      "category": "Sublimation",
+      "type": "Premium",
+      "collection": "Urban",
+      "status": "published",
+      "access": "premium",
+      "featured": false,
+      "description": "A contemporary teamwear collection designed for sublimation and modern apparel production.",
+      "preview": "assets/designs/kulexo-005-preview.svg",
+      "detailPage": "design-detail.html",
+      "license": "coming-soon",
+      "tags": [
+        "sublimation",
+        "teamwear",
+        "urban",
+        "premium"
+      ]
+    },
+    {
+      "id": "kulexo-006",
+      "name": "Pro Green Collection",
+      "category": "T-Shirts",
+      "type": "Vector",
+      "collection": "Pro",
+      "status": "published",
+      "access": "free",
+      "featured": false,
+      "description": "A clean apparel concept for professional T-shirt and casual sportswear projects.",
+      "preview": "assets/designs/kulexo-006-preview.svg",
+      "detailPage": "design-detail.html",
+      "license": "coming-soon",
+      "tags": [
+        "t-shirts",
+        "apparel",
+        "casual",
+        "vector"
+      ]
+    }
+  ]
+}
