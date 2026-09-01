@@ -1,0 +1,1389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>KULEXO — Apparel Design Library</title>
+  <meta name="description" content="KULEXO — professional apparel and sportswear design resources for designers, creators and apparel businesses.">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #f7f7f5;
+      --surface: #ffffff;
+      --dark: #101114;
+      --muted: #686b73;
+      --line: #e4e4e0;
+      --accent: #635bff;
+      --accent-dark: #4f46d8;
+      --soft: #eeedff;
+      --radius: 22px;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--dark);
+      line-height: 1.5;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    .container {
+      width: min(1180px, calc(100% - 40px));
+      margin: auto;
+    }
+
+    /* NAVIGATION */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(247,247,245,.88);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(0,0,0,.06);
+    }
+
+    .nav-inner {
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 25px;
+    }
+
+    .logo {
+      font-size: 27px;
+      font-weight: 900;
+      letter-spacing: -1.5px;
+    }
+
+    .logo span {
+      color: var(--accent);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .nav-links a {
+      color: #393b42;
+      transition: .2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .login {
+      padding: 10px 15px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .btn {
+      border: 0;
+      cursor: pointer;
+      border-radius: 12px;
+      padding: 13px 19px;
+      font-weight: 750;
+      transition: transform .2s, box-shadow .2s, background .2s;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-primary {
+      background: var(--dark);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      box-shadow: 0 10px 25px rgba(0,0,0,.14);
+    }
+
+    .btn-accent {
+      background: var(--accent);
+      color: white;
+    }
+
+    /* HERO */
+    .hero {
+      padding: 90px 0 70px;
+      overflow: hidden;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 55px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      background: var(--soft);
+      color: var(--accent-dark);
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 800;
+      margin-bottom: 22px;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      background: var(--accent);
+      border-radius: 50%;
+    }
+
+    .hero h1 {
+      font-size: clamp(48px, 6vw, 78px);
+      line-height: .98;
+      letter-spacing: -4px;
+      max-width: 760px;
+    }
+
+    .hero h1 span {
+      color: var(--accent);
+    }
+
+    .hero-copy {
+      margin-top: 25px;
+      max-width: 620px;
+      font-size: 18px;
+      color: var(--muted);
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 12px;
+      margin-top: 32px;
+      flex-wrap: wrap;
+    }
+
+    .hero-visual {
+      min-height: 510px;
+      position: relative;
+      border-radius: 32px;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(99,91,255,.45), transparent 30%),
+        radial-gradient(circle at 80% 80%, rgba(0,0,0,.25), transparent 30%),
+        #17181d;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .visual-card {
+      width: 72%;
+      height: 75%;
+      border-radius: 20px;
+      background: linear-gradient(145deg, #292b35, #101115);
+      border: 1px solid rgba(255,255,255,.14);
+      box-shadow: 0 35px 80px rgba(0,0,0,.35);
+      transform: rotate(-5deg);
+      padding: 25px;
+      color: white;
+    }
+
+    .visual-card small {
+      color: #a6a7b0;
+      font-weight: 700;
+    }
+
+    .jersey {
+      margin-top: 30px;
+      height: 250px;
+      border-radius: 24px;
+      background:
+        linear-gradient(135deg, transparent 25%, rgba(255,255,255,.14) 25%, transparent 45%),
+        linear-gradient(135deg, #635bff, #25204f);
+      clip-path: polygon(24% 5%, 39% 15%, 61% 15%, 76% 5%, 100% 27%, 83% 44%, 75% 30%, 75% 100%, 25% 100%, 25% 30%, 17% 44%, 0 27%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 38px;
+      font-weight: 900;
+      letter-spacing: -2px;
+    }
+
+    .floating {
+      position: absolute;
+      background: rgba(255,255,255,.95);
+      padding: 13px 17px;
+      border-radius: 14px;
+      box-shadow: 0 15px 35px rgba(0,0,0,.2);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .float-one {
+      top: 55px;
+      right: 25px;
+    }
+
+    .float-two {
+      bottom: 55px;
+      left: 25px;
+    }
+
+    /* SEARCH */
+    .search-wrap {
+      margin-top: 15px;
+      padding: 8px;
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 17px;
+      display: flex;
+      max-width: 680px;
+      box-shadow: 0 15px 40px rgba(0,0,0,.06);
+    }
+
+    .search-wrap input {
+      flex: 1;
+      min-width: 0;
+      border: 0;
+      outline: 0;
+      padding: 12px 15px;
+      background: transparent;
+    }
+
+    .search-wrap button {
+      border: 0;
+      background: var(--dark);
+      color: white;
+      padding: 12px 22px;
+      border-radius: 11px;
+      cursor: pointer;
+      font-weight: 750;
+    }
+
+    /* SECTION */
+    section {
+      padding: 90px 0;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 25px;
+      margin-bottom: 35px;
+    }
+
+    .section-head h2 {
+      font-size: clamp(32px, 4vw, 48px);
+      letter-spacing: -2px;
+      line-height: 1;
+    }
+
+    .section-head p {
+      color: var(--muted);
+      max-width: 470px;
+    }
+
+    .text-link {
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    /* CATEGORIES */
+    .categories {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+
+    .category {
+      min-height: 150px;
+      border: 1px solid var(--line);
+      background: white;
+      border-radius: 18px;
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      justify-content: end;
+      transition: .25s;
+    }
+
+    .category:hover {
+      transform: translateY(-5px);
+      border-color: #bbb8ff;
+      box-shadow: 0 18px 40px rgba(0,0,0,.07);
+    }
+
+    .category-icon {
+      font-size: 30px;
+      margin-bottom: auto;
+    }
+
+    .category h3 {
+      font-size: 17px;
+    }
+
+    .category p {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    /* DESIGNS */
+    .designs {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .design {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      overflow: hidden;
+      transition: .25s;
+    }
+
+    .design:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 45px rgba(0,0,0,.08);
+    }
+
+    .design-image {
+      height: 300px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .design:nth-child(1) .design-image {
+      background: linear-gradient(135deg,#111,#635bff);
+    }
+
+    .design:nth-child(2) .design-image {
+      background: linear-gradient(135deg,#e8e8e8,#a7a7ad);
+    }
+
+    .design:nth-child(3) .design-image {
+      background: linear-gradient(135deg,#171717,#c6a24b);
+    }
+
+    .design:nth-child(4) .design-image {
+      background: linear-gradient(135deg,#0e2831,#1ac7d7);
+    }
+
+    .design:nth-child(5) .design-image {
+      background: linear-gradient(135deg,#401f43,#db68d7);
+    }
+
+    .design:nth-child(6) .design-image {
+      background: linear-gradient(135deg,#192d22,#5bbf76);
+    }
+
+    .mini-jersey {
+      width: 145px;
+      height: 190px;
+      clip-path: polygon(24% 5%,39% 15%,61% 15%,76% 5%,100% 27%,83% 44%,75% 30%,75% 100%,25% 100%,25% 30%,17% 44%,0 27%);
+      background: rgba(255,255,255,.85);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #151515;
+      font-weight: 900;
+      font-size: 20px;
+    }
+
+    .design-body {
+      padding: 18px;
+    }
+
+    .design-body h3 {
+      font-size: 17px;
+    }
+
+    .design-meta {
+      margin-top: 7px;
+      display: flex;
+      justify-content: space-between;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    /* STATS */
+    .stats-section {
+      background: var(--dark);
+      color: white;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4,1fr);
+      gap: 20px;
+    }
+
+    .stat {
+      padding: 20px;
+      border-left: 1px solid rgba(255,255,255,.14);
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 45px;
+      letter-spacing: -2px;
+    }
+
+    .stat span {
+      color: #a4a6ad;
+      font-size: 14px;
+    }
+
+    /* HOW */
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(4,1fr);
+      gap: 16px;
+    }
+
+    .step {
+      padding: 28px;
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+    }
+
+    .step-number {
+      color: var(--accent);
+      font-weight: 900;
+      font-size: 13px;
+    }
+
+    .step h3 {
+      margin-top: 35px;
+      font-size: 20px;
+    }
+
+    .step p {
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    /* VALUE */
+    .value {
+      background: #ecebff;
+    }
+
+    .value-grid {
+      display: grid;
+      grid-template-columns: .8fr 1.2fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .value h2 {
+      font-size: clamp(38px,5vw,60px);
+      line-height: 1;
+      letter-spacing: -3px;
+    }
+
+    .value-copy {
+      color: #575963;
+      margin-top: 20px;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(2,1fr);
+      gap: 14px;
+    }
+
+    .feature {
+      background: white;
+      border-radius: 18px;
+      padding: 24px;
+    }
+
+    .feature strong {
+      display: block;
+      margin-bottom: 7px;
+    }
+
+    .feature p {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    /* MEMBERSHIP */
+    .plans {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 18px;
+    }
+
+    .plan {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 28px;
+    }
+
+    .plan.featured {
+      border: 2px solid var(--accent);
+      transform: translateY(-8px);
+    }
+
+    .plan-label {
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .plan h3 {
+      font-size: 25px;
+      margin-top: 10px;
+    }
+
+    .plan-price {
+      margin: 22px 0;
+      font-size: 34px;
+      font-weight: 900;
+    }
+
+    .plan ul {
+      list-style: none;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .plan li {
+      padding: 8px 0;
+    }
+
+    .plan li::before {
+      content: "✓";
+      color: var(--accent);
+      font-weight: 900;
+      margin-right: 8px;
+    }
+
+    .plan .btn {
+      width: 100%;
+      margin-top: 25px;
+    }
+
+    /* FAQ */
+    .faq {
+      max-width: 850px;
+      margin: auto;
+    }
+
+    details {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 15px;
+      margin-bottom: 10px;
+      padding: 20px 22px;
+    }
+
+    summary {
+      cursor: pointer;
+      font-weight: 800;
+    }
+
+    details p {
+      color: var(--muted);
+      margin-top: 14px;
+      font-size: 14px;
+    }
+
+    /* CTA */
+    .cta {
+      padding: 100px 0;
+    }
+
+    .cta-box {
+      background: var(--dark);
+      color: white;
+      border-radius: 30px;
+      padding: 70px 40px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-box::before {
+      content: "";
+      position: absolute;
+      width: 400px;
+      height: 400px;
+      background: var(--accent);
+      filter: blur(120px);
+      opacity: .28;
+      top: -250px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .cta-box > * {
+      position: relative;
+    }
+
+    .cta-box h2 {
+      font-size: clamp(38px,5vw,62px);
+      line-height: 1;
+      letter-spacing: -3px;
+    }
+
+    .cta-box p {
+      color: #a7a9b1;
+      margin: 18px auto 28px;
+      max-width: 580px;
+    }
+
+    /* FOOTER */
+    footer {
+      background: #0b0c0e;
+      color: white;
+      padding: 70px 0 30px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.4fr repeat(3,1fr);
+      gap: 40px;
+    }
+
+    .footer-brand p {
+      color: #8e9098;
+      margin-top: 15px;
+      max-width: 300px;
+      font-size: 14px;
+    }
+
+    .footer-col h4 {
+      margin-bottom: 16px;
+      font-size: 14px;
+    }
+
+    .footer-col a {
+      display: block;
+      color: #8e9098;
+      font-size: 14px;
+      margin: 9px 0;
+    }
+
+    .footer-col a:hover {
+      color: white;
+    }
+
+    .copyright {
+      border-top: 1px solid #25262b;
+      margin-top: 55px;
+      padding-top: 22px;
+      color: #70727a;
+      font-size: 12px;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .nav-links {
+        display: none;
+      }
+
+      .hero-grid,
+      .value-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .categories,
+      .steps {
+        grid-template-columns: repeat(2,1fr);
+      }
+
+      .designs {
+        grid-template-columns: repeat(2,1fr);
+      }
+
+      .stats-grid {
+        grid-template-columns: repeat(2,1fr);
+      }
+
+      .plans {
+        grid-template-columns: 1fr;
+      }
+
+      .plan.featured {
+        transform: none;
+      }
+
+      .footer-grid {
+        grid-template-columns: repeat(2,1fr);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        width: min(100% - 28px, 1180px);
+      }
+
+      .hero {
+        padding-top: 55px;
+      }
+
+      .hero h1 {
+        letter-spacing: -2.5px;
+      }
+
+      .hero-visual {
+        min-height: 390px;
+      }
+
+      .categories,
+      .designs,
+      .steps,
+      .stats-grid,
+      .features,
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .section-head {
+        display: block;
+      }
+
+      .text-link {
+        display: inline-block;
+        margin-top: 15px;
+      }
+
+      .nav-actions .login {
+        display: none;
+      }
+
+      .search-wrap {
+        flex-direction: column;
+      }
+
+      .search-wrap button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAV -->
+  <header class="nav">
+    <div class="container nav-inner">
+      <a href="#" class="logo">KULE<span>XO</span></a>
+
+      <nav class="nav-links">
+        <a href="#designs">Designs</a>
+        <a href="#categories">Categories</a>
+        <a href="#why">Why KULEXO</a>
+        <a href="#pricing">Pricing</a>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="#" class="login">Log in</a>
+        <a href="#pricing" class="btn btn-primary">Get Started</a>
+      </div>
+    </div>
+  </header>
+
+
+  <!-- HERO -->
+  <main>
+
+    <section class="hero">
+      <div class="container hero-grid">
+
+        <div>
+          <div class="eyebrow">Professional Apparel Design Platform</div>
+
+          <h1>
+            Design better.<br>
+            <span>Create faster.</span>
+          </h1>
+
+          <p class="hero-copy">
+            A growing library of professional apparel and sportswear designs,
+            built for designers, creators and apparel businesses.
+          </p>
+
+          <div class="hero-buttons">
+            <a href="#designs" class="btn btn-accent">Explore Designs →</a>
+            <a href="#why" class="btn btn-primary">Why KULEXO?</a>
+          </div>
+
+          <div class="search-wrap">
+            <input type="search" id="searchInput" placeholder="Search jersey, football, cricket, sublimation...">
+            <button onclick="searchDesigns()">Search</button>
+          </div>
+        </div>
+
+        <div class="hero-visual">
+          <div class="visual-card">
+            <small>KULEXO / FEATURED DESIGN</small>
+            <div class="jersey">KULEXO</div>
+          </div>
+
+          <div class="floating float-one">✦ Premium Design Library</div>
+          <div class="floating float-two">10,000+ Design Resources</div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- CATEGORIES -->
+    <section id="categories">
+      <div class="container">
+
+        <div class="section-head">
+          <div>
+            <h2>Explore by category.</h2>
+          </div>
+          <p>
+            Find the right starting point for your next apparel project.
+          </p>
+        </div>
+
+        <div class="categories">
+
+          <a class="category" href="#">
+            <div class="category-icon">🏏</div>
+            <h3>Cricket</h3>
+            <p>Jerseys & teamwear</p>
+          </a>
+
+          <a class="category" href="#">
+            <div class="category-icon">⚽</div>
+            <h3>Football</h3>
+            <p>Professional kits</p>
+          </a>
+
+          <a class="category" href="#">
+            <div class="category-icon">🏀</div>
+            <h3>Basketball</h3>
+            <p>Modern team designs</p>
+          </a>
+
+          <a class="category" href="#">
+            <div class="category-icon">🎮</div>
+            <h3>Esports</h3>
+            <p>Gaming apparel</p>
+          </a>
+
+          <a class="category" href="#">
+            <div class="category-icon">👕</div>
+            <h3>T-Shirts</h3>
+            <p>Creative apparel</p>
+          </a>
+
+          <a class="category" href="#">
+            <div class="category-icon">✦</div>
+            <h3>Sublimation</h3>
+            <p>Print-ready concepts</p>
+          </a>
+
+          <a class="category" href="#">
+            <div class="category-icon">🧥</div>
+            <h3>Tracksuits</h3>
+            <p>Complete collections</p>
+          </a>
+
+          <a class="category" href="#">
+            <div class="category-icon">＋</div>
+            <h3>More</h3>
+            <p>Explore everything</p>
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- DESIGNS -->
+    <section id="designs">
+      <div class="container">
+
+        <div class="section-head">
+          <div>
+            <h2>Featured designs.</h2>
+          </div>
+
+          <a href="#" class="text-link">View all designs →</a>
+        </div>
+
+        <div class="designs" id="designGrid">
+
+          <article class="design">
+            <div class="design-image">
+              <div class="mini-jersey">01</div>
+            </div>
+            <div class="design-body">
+              <h3>Modern Performance Jersey</h3>
+              <div class="design-meta">
+                <span>Cricket</span>
+                <span>Vector</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="design">
+            <div class="design-image">
+              <div class="mini-jersey">02</div>
+            </div>
+            <div class="design-body">
+              <h3>Elite Football Kit</h3>
+              <div class="design-meta">
+                <span>Football</span>
+                <span>Vector</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="design">
+            <div class="design-image">
+              <div class="mini-jersey">03</div>
+            </div>
+            <div class="design-body">
+              <h3>Premium Gold Concept</h3>
+              <div class="design-meta">
+                <span>Sportswear</span>
+                <span>AI Ready</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="design">
+            <div class="design-image">
+              <div class="mini-jersey">04</div>
+            </div>
+            <div class="design-body">
+              <h3>Velocity Performance</h3>
+              <div class="design-meta">
+                <span>Esports</span>
+                <span>Vector</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="design">
+            <div class="design-image">
+              <div class="mini-jersey">05</div>
+            </div>
+            <div class="design-body">
+              <h3>Urban Team Collection</h3>
+              <div class="design-meta">
+                <span>Jersey</span>
+                <span>Premium</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="design">
+            <div class="design-image">
+              <div class="mini-jersey">06</div>
+            </div>
+            <div class="design-body">
+              <h3>Pro Green Collection</h3>
+              <div class="design-meta">
+                <span>Football</span>
+                <span>Vector</span>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- STATS -->
+    <section class="stats-section" id="why">
+      <div class="container">
+
+        <div class="section-head">
+          <div>
+            <h2>Built from real experience.</h2>
+          </div>
+          <p>
+            KULEXO combines design experience, apparel knowledge and modern
+            technology into one growing platform.
+          </p>
+        </div>
+
+        <div class="stats-grid">
+
+          <div class="stat">
+            <strong>10K+</strong>
+            <span>Design resources</span>
+          </div>
+
+          <div class="stat">
+            <strong>8+</strong>
+            <span>Years of experience</span>
+          </div>
+
+          <div class="stat">
+            <strong>AI</strong>
+            <span>Modern workflow</span>
+          </div>
+
+          <div class="stat">
+            <strong>∞</strong>
+            <span>Creative possibilities</span>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- HOW IT WORKS -->
+    <section>
+      <div class="container">
+
+        <div class="section-head">
+          <div>
+            <h2>From idea to design.</h2>
+          </div>
+          <p>
+            A simple workflow designed around the way apparel creators work.
+          </p>
+        </div>
+
+        <div class="steps">
+
+          <div class="step">
+            <div class="step-number">01</div>
+            <h3>Discover</h3>
+            <p>Search thousands of apparel design concepts.</p>
+          </div>
+
+          <div class="step">
+            <div class="step-number">02</div>
+            <h3>Choose</h3>
+            <p>Find the style, category and concept that fits your project.</p>
+          </div>
+
+          <div class="step">
+            <div class="step-number">03</div>
+            <h3>Customize</h3>
+            <p>Use your selected design as the starting point for your work.</p>
+          </div>
+
+          <div class="step">
+            <div class="step-number">04</div>
+            <h3>Download</h3>
+            <p>Get your resources and move from screen to production.</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- VALUE -->
+    <section class="value">
+      <div class="container value-grid">
+
+        <div>
+          <div class="eyebrow">Why KULEXO</div>
+
+          <h2>
+            More than a library.
+            A design workflow.
+          </h2>
+
+          <p class="value-copy">
+            Built specifically around apparel design, so your workflow starts
+            closer to the final product.
+          </p>
+        </div>
+
+        <div class="features">
+
+          <div class="feature">
+            <strong>Professional quality</strong>
+            <p>Design resources created with apparel production in mind.</p>
+          </div>
+
+          <div class="feature">
+            <strong>Apparel focused</strong>
+            <p>Built around jerseys, sportswear and modern apparel needs.</p>
+          </div>
+
+          <div class="feature">
+            <strong>AI-ready workflow</strong>
+            <p>Designed to evolve with modern AI-assisted creative tools.</p>
+          </div>
+
+          <div class="feature">
+            <strong>Fast discovery</strong>
+            <p>Find the right visual direction without wasting time.</p>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- PRICING -->
+    <section id="pricing">
+      <div class="container">
+
+        <div class="section-head">
+          <div>
+            <h2>Plans that fit your workflow.</h2>
+          </div>
+          <p>
+            Start exploring KULEXO and upgrade when you need more.
+          </p>
+        </div>
+
+        <div class="plans">
+
+          <div class="plan">
+            <div class="plan-label">START</div>
+            <h3>Free</h3>
+            <div class="plan-price">₹0</div>
+
+            <ul>
+              <li>Explore the library</li>
+              <li>Browse categories</li>
+              <li>Discover new designs</li>
+              <li>Basic account</li>
+            </ul>
+
+            <a href="#" class="btn btn-primary">Get Started</a>
+          </div>
+
+          <div class="plan featured">
+            <div class="plan-label">MOST POPULAR</div>
+            <h3>Premium</h3>
+            <div class="plan-price">Coming soon</div>
+
+            <ul>
+              <li>Premium design library</li>
+              <li>More downloads</li>
+              <li>Advanced discovery</li>
+              <li>Member benefits</li>
+            </ul>
+
+            <a href="#" class="btn btn-accent">Join Waitlist</a>
+          </div>
+
+          <div class="plan">
+            <div class="plan-label">PRO</div>
+            <h3>Professional</h3>
+            <div class="plan-price">Coming soon</div>
+
+            <ul>
+              <li>Professional workflow</li>
+              <li>Advanced resources</li>
+              <li>Future AI tools</li>
+              <li>Priority features</li>
+            </ul>
+
+            <a href="#" class="btn btn-primary">Coming Soon</a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- FAQ -->
+    <section>
+      <div class="container">
+
+        <div class="section-head">
+          <div>
+            <h2>Questions, answered.</h2>
+          </div>
+        </div>
+
+        <div class="faq">
+
+          <details>
+            <summary>What is KULEXO?</summary>
+            <p>
+              KULEXO is being built as a professional apparel design platform
+              focused on helping designers and apparel businesses discover and
+              use high-quality design resources.
+            </p>
+          </details>
+
+          <details>
+            <summary>What type of designs will be available?</summary>
+            <p>
+              The platform is planned around sportswear, jerseys, sublimation,
+              T-shirts, tracksuits, esports and other apparel categories.
+            </p>
+          </details>
+
+          <details>
+            <summary>Will KULEXO have AI tools?</summary>
+            <p>
+              AI-assisted creative workflows are part of the long-term KULEXO
+              vision and will be introduced as the platform evolves.
+            </p>
+          </details>
+
+          <details>
+            <summary>Can I use KULEXO for my apparel business?</summary>
+            <p>
+              KULEXO is being designed with professional designers, creators
+              and apparel businesses in mind.
+            </p>
+          </details>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- CTA -->
+    <section class="cta">
+      <div class="container">
+
+        <div class="cta-box">
+          <h2>Make your next design<br>start here.</h2>
+
+          <p>
+            Explore the KULEXO design ecosystem and build your next apparel
+            project with a better starting point.
+          </p>
+
+          <a href="#designs" class="btn btn-accent">Explore KULEXO →</a>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+
+      <div class="footer-grid">
+
+        <div class="footer-brand">
+          <div class="logo">KULE<span>XO</span></div>
+
+          <p>
+            Professional apparel design resources for creators, designers
+            and businesses.
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Explore</h4>
+          <a href="#designs">Designs</a>
+          <a href="#categories">Categories</a>
+          <a href="#pricing">Pricing</a>
+          <a href="#">New releases</a>
+        </div>
+
+        <div class="footer-col">
+          <h4>KULEXO</h4>
+          <a href="#why">Why KULEXO</a>
+          <a href="#">About</a>
+          <a href="#">Contact</a>
+          <a href="#">FAQ</a>
+        </div>
+
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
+          <a href="#">License</a>
+          <a href="#">Refunds</a>
+        </div>
+
+      </div>
+
+      <div class="copyright">
+        © 2026 KULEXO. All rights reserved.
+      </div>
+
+    </div>
+  </footer>
+
+
+  <script>
+    function searchDesigns() {
+      const input = document.getElementById("searchInput");
+      const query = input.value.trim();
+
+      if (!query) {
+        document.getElementById("designs").scrollIntoView({
+          behavior: "smooth"
+        });
+        return;
+      }
+
+      const designs = document.querySelectorAll(".design");
+
+      designs.forEach(card => {
+        const text = card.innerText.toLowerCase();
+
+        card.style.display =
+          text.includes(query.toLowerCase()) ? "" : "none";
+      });
+
+      document.getElementById("designs").scrollIntoView({
+        behavior: "smooth"
+      });
+    }
+
+    document.getElementById("searchInput").addEventListener("keydown", function(event) {
+      if (event.key === "Enter") {
+        searchDesigns();
+      }
+    });
+  </script>
+
+</body>
+</html>
