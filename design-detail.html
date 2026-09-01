@@ -1037,25 +1037,289 @@
 
 
   <script>
-    function showMessage() {
-      alert(
-        "KULEXO Download System\n\n" +
-        "The real design download will be connected when the KULEXO Design Library and licensing system are ready."
-      );
-    }
+  let currentDesign = null;
 
-    function saveDesign(button) {
-      const saved = button.dataset.saved === "true";
+  const gradients = {
+    "kulexo-001":
+      "radial-gradient(circle at 25% 20%, rgba(99,91,255,.55), transparent 35%), linear-gradient(135deg, #17144d 0%, #3931a8 50%, #625bff 100%)",
 
-      if (saved) {
-        button.innerHTML = "♡ Save Design";
-        button.dataset.saved = "false";
-      } else {
-        button.innerHTML = "♥ Saved";
-        button.dataset.saved = "true";
+    "kulexo-002":
+      "linear-gradient(135deg, #d8d8dc 0%, #aeb0b9 100%)",
+
+    "kulexo-003":
+      "linear-gradient(135deg, #51421e 0%, #b79235 100%)",
+
+    "kulexo-004":
+      "linear-gradient(135deg, #0d5960 0%, #19b9c8 100%)",
+
+    "kulexo-005":
+      "linear-gradient(135deg, #32163e 0%, #c14ed0 100%)",
+
+    "kulexo-006":
+      "linear-gradient(135deg, #173822 0%, #4caf6b 100%)"
+  };
+
+  function slugify(text) {
+    return text
+      .toLowerCase()
+      .trim()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "");
+  }
+
+  function formatLicense(value) {
+    if (!value) return "Coming soon";
+
+    return value
+      .split("-")
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ");
+  }
+
+  function formatAccess(value) {
+    return value === "premium" ? "Premium" : "Free";
+  }
+
+  function addDynamicStyles() {
+    const style = document.createElement("style");
+
+    style.textContent = `
+      .detail-design-asset {
+        width: min(72%, 520px);
+        max-height: 72%;
+        object-fit: contain;
+        display: block;
+        position: relative;
+        z-index: 2;
+        filter: drop-shadow(0 28px 28px rgba(0,0,0,.20));
+        transform: rotate(-2deg);
+        transition: transform .4s ease;
       }
+
+      .design-visual:hover .detail-design-asset {
+        transform: rotate(0deg) scale(1.04);
+      }
+
+      @media (max-width: 600px) {
+        .detail-design-asset {
+          width: 78%;
+          max-height: 68%;
+        }
+
+        .design-visual:hover .detail-design-asset {
+          transform: scale(1.02);
+        }
+      }
+    `;
+
+    document.head.appendChild(style);
+  }
+
+  function renderVisual(design) {
+    const visual = document.querySelector(".design-visual");
+
+    if (!visual) return;
+
+    visual.style.background =
+      gradients[design.id] || gradients["kulexo-001"];
+
+    visual.innerHTML = `
+      <div class="visual-grid"></div>
+
+      <div class="design-number">
+        ${design.id.replace("kulexo-", "").padStart(2, "0")}
+      </div>
+
+      <div class="visual-badge">
+        ✦ ${design.access === "premium" ? "Premium Design" : "Free Design"}
+      </div>
+
+      <div class="jersey">
+        <div class="jersey-body"></div>
+        <div class="jersey-stripe"></div>
+
+        <div class="jersey-label">
+          KULEXO
+        </div>
+      </div>
+
+      <div class="visual-bottom">
+        KULEXO / ${design.collection.toUpperCase()} COLLECTION
+      </div>
+    `;
+
+    const image = new Image();
+
+    image.className = "detail-design-asset";
+    image.alt = `${design.name} preview`;
+    image.src = design.preview;
+
+    image.onload = () => {
+      const jersey = visual.querySelector(".jersey");
+
+      if (jersey) {
+        jersey.replaceWith(image);
+      }
+    };
+
+    image.onerror = () => {
+      console.log(`Preview not found: ${design.preview}`);
+    };
+  }
+
+  function updateRelatedDesigns(designs) {
+    const relatedGrid = document.querySelector(".related-grid");
+
+    if (!relatedGrid || !currentDesign) return;
+
+    const related = designs
+      .filter(design => design.id !== currentDesign.id)
+      .slice(0, 3);
+
+    relatedGrid.innerHTML = related
+      .map(design => {
+        const slug = slugify(design.name);
+
+        return `
+          <a
+            href="design-detail.html?design=${slug}"
+            class="related-card"
+          >
+            <div
+              class="related-visual"
+              style="background: ${gradients[design.id] || gradients["kulexo-001"]};"
+            >
+              <div class="mini-jersey"></div>
+            </div>
+
+            <div class="related-content">
+              <h3>${design.name}</h3>
+              <p>${design.category} · ${design.type}</p>
+            </div>
+          </a>
+        `;
+      })
+      .join("");
+  }
+
+  function updatePage(design, designs) {
+    currentDesign = design;
+
+    document.title = `${design.name} — KULEXO`;
+
+    const descriptionMeta = document.querySelector(
+      'meta[name="description"]'
+    );
+
+    if (descriptionMeta) {
+      descriptionMeta.content =
+        `Explore the ${design.name} design concept on KULEXO.`;
     }
-  </script>
+
+    const breadcrumb = document.querySelector(".breadcrumb strong");
+
+    if (breadcrumb) {
+      breadcrumb.textContent = design.name;
+    }
+
+    const title = document.querySelector(".detail-info h1");
+
+    if (title) {
+      title.textContent = `${design.name}.`;
+    }
+
+    const intro = document.querySelector(".detail-info .intro");
+
+    if (intro) {
+      intro.textContent = design.description;
+    }
+
+    const meta = document.querySelectorAll(".detail-info .meta span");
+
+    if (meta[0]) meta[0].textContent = design.category;
+    if (meta[1]) meta[1].textContent = design.type;
+    if (meta[2]) {
+      meta[2].textContent =
+        design.tags && design.tags.length > 2
+          ? design.tags[2].charAt(0).toUpperCase() + design.tags[2].slice(1)
+          : design.collection;
+    }
+    if (meta[3]) meta[3].textContent = formatAccess(design.access);
+
+    const infoValues = document.querySelectorAll(
+      ".info-card:first-of-type .info-row strong"
+    );
+
+    if (infoValues[0]) infoValues[0].textContent = design.category;
+    if (infoValues[1]) infoValues[1].textContent = design.type;
+    if (infoValues[2]) infoValues[2].textContent = design.collection;
+    if (infoValues[3]) infoValues[3].textContent =
+      formatLicense(design.license);
+
+    renderVisual(design);
+    updateRelatedDesigns(designs);
+  }
+
+  async function loadDesign() {
+    addDynamicStyles();
+
+    const params = new URLSearchParams(window.location.search);
+    const requestedDesign = params.get("design");
+
+    try {
+      const response = await fetch("assets/designs.json");
+
+      if (!response.ok) {
+        throw new Error("Could not load designs.json");
+      }
+
+      const data = await response.json();
+
+      const designs = data.designs || [];
+
+      let design = designs.find(item => {
+        return (
+          item.id === requestedDesign ||
+          slugify(item.name) === requestedDesign
+        );
+      });
+
+      if (!design) {
+        design = designs[0];
+      }
+
+      updatePage(design, designs);
+    } catch (error) {
+      console.error("KULEXO design loader error:", error);
+    }
+  }
+
+  function showMessage() {
+    const name = currentDesign
+      ? currentDesign.name
+      : "this KULEXO design";
+
+    alert(
+      "KULEXO Download System\\n\\n" +
+      `${name}\\n\\n` +
+      "The real design download will be connected when the KULEXO Design Library and licensing system are ready."
+    );
+  }
+
+  function saveDesign(button) {
+    const saved = button.dataset.saved === "true";
+
+    if (saved) {
+      button.innerHTML = "♡ Save Design";
+      button.dataset.saved = "false";
+    } else {
+      button.innerHTML = "♥ Saved";
+      button.dataset.saved = "true";
+    }
+  }
+
+  loadDesign();
+</script>
 
 </body>
 </html>
