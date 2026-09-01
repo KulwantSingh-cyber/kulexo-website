@@ -1,0 +1,1341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Design Library — KULEXO</title>
+  <meta name="description" content="Explore the KULEXO professional apparel and sportswear design library.">
+
+  <style>
+    :root {
+      --bg: #f7f7f5;
+      --surface: #ffffff;
+      --text: #101114;
+      --muted: #697080;
+      --line: #e4e4e8;
+      --accent: #635bff;
+      --accent-dark: #4f46d8;
+      --soft: #eeeeff;
+      --dark: #101114;
+      --radius: 20px;
+      --shadow: 0 16px 45px rgba(16, 17, 20, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    button,
+    input,
+    select {
+      font: inherit;
+    }
+
+    button,
+    a {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* NAVIGATION */
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255,255,255,.92);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav-inner {
+      width: min(1180px, calc(100% - 40px));
+      min-height: 72px;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+
+    .logo {
+      font-size: 23px;
+      font-weight: 900;
+      letter-spacing: -1.5px;
+      margin-right: auto;
+    }
+
+    .logo span {
+      color: var(--accent);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #444852;
+    }
+
+    .nav-links a {
+      transition: color .2s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .login {
+      padding: 11px 15px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .btn {
+      border: 0;
+      border-radius: 12px;
+      padding: 12px 18px;
+      cursor: pointer;
+      font-weight: 800;
+      transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-dark {
+      background: var(--dark);
+      color: white;
+    }
+
+    .btn-accent {
+      background: var(--accent);
+      color: white;
+      box-shadow: 0 8px 22px rgba(99,91,255,.22);
+    }
+
+    /* HERO */
+
+    .library-hero {
+      padding: 90px 0 60px;
+      background:
+        radial-gradient(circle at 80% 20%, rgba(99,91,255,.13), transparent 32%),
+        radial-gradient(circle at 15% 30%, rgba(99,91,255,.08), transparent 30%),
+        var(--bg);
+    }
+
+    .hero-inner {
+      width: min(1180px, calc(100% - 40px));
+      margin: auto;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--accent);
+      background: var(--soft);
+      border: 1px solid #dfddff;
+      border-radius: 999px;
+      padding: 7px 12px;
+      font-size: 12px;
+      font-weight: 800;
+      margin-bottom: 22px;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    .library-hero h1 {
+      max-width: 820px;
+      font-size: clamp(44px, 7vw, 82px);
+      line-height: .98;
+      letter-spacing: -4px;
+      margin-bottom: 24px;
+    }
+
+    .library-hero h1 span {
+      color: var(--accent);
+    }
+
+    .hero-copy {
+      max-width: 690px;
+      color: var(--muted);
+      font-size: 18px;
+      margin-bottom: 34px;
+    }
+
+    /* SEARCH */
+
+    .search-box {
+      max-width: 850px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: white;
+      padding: 8px;
+      border: 1px solid var(--line);
+      border-radius: 17px;
+      box-shadow: var(--shadow);
+    }
+
+    .search-icon {
+      padding-left: 14px;
+      font-size: 20px;
+      color: var(--muted);
+    }
+
+    .search-box input {
+      min-width: 0;
+      flex: 1;
+      border: 0;
+      outline: 0;
+      background: transparent;
+      padding: 14px 8px;
+      font-size: 16px;
+      color: var(--text);
+    }
+
+    .search-box input::placeholder {
+      color: #9ca1ac;
+    }
+
+    .search-button {
+      border: 0;
+      background: var(--dark);
+      color: white;
+      padding: 13px 22px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: 800;
+    }
+
+    /* CONTENT */
+
+    .library {
+      width: min(1180px, calc(100% - 40px));
+      margin: auto;
+      padding: 45px 0 110px;
+    }
+
+    .library-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 25px;
+      margin-bottom: 24px;
+    }
+
+    .library-top h2 {
+      font-size: 34px;
+      letter-spacing: -1.5px;
+    }
+
+    .library-top p {
+      color: var(--muted);
+      margin-top: 5px;
+      font-size: 14px;
+    }
+
+    .sort {
+      border: 1px solid var(--line);
+      background: white;
+      border-radius: 11px;
+      padding: 11px 13px;
+      outline: none;
+      cursor: pointer;
+    }
+
+    /* FILTERS */
+
+    .filters {
+      display: flex;
+      gap: 9px;
+      flex-wrap: wrap;
+      padding-bottom: 30px;
+    }
+
+    .filter {
+      border: 1px solid var(--line);
+      background: white;
+      color: #3e424c;
+      border-radius: 999px;
+      padding: 9px 15px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 700;
+      transition: all .2s ease;
+    }
+
+    .filter:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .filter.active {
+      background: var(--dark);
+      color: white;
+      border-color: var(--dark);
+    }
+
+    /* GRID */
+
+    .design-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .design-card {
+      position: relative;
+      overflow: hidden;
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      transition: transform .25s ease, box-shadow .25s ease;
+      animation: cardIn .45s ease both;
+    }
+
+    .design-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow);
+    }
+
+    .design-visual {
+      position: relative;
+      height: 280px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .visual-1 {
+      background: linear-gradient(135deg, #17133f, #635bff);
+    }
+
+    .visual-2 {
+      background: linear-gradient(135deg, #e9e9ed, #aeb0b8);
+    }
+
+    .visual-3 {
+      background: linear-gradient(135deg, #2e2817, #b8943e);
+    }
+
+    .visual-4 {
+      background: linear-gradient(135deg, #083b42, #17b9c9);
+    }
+
+    .visual-5 {
+      background: linear-gradient(135deg, #32163e, #c14ed0);
+    }
+
+    .visual-6 {
+      background: linear-gradient(135deg, #173822, #4caf6b);
+    }
+
+    .shirt {
+      position: relative;
+      width: 150px;
+      height: 175px;
+      background: rgba(255,255,255,.94);
+      clip-path: polygon(
+        28% 0,
+        42% 8%,
+        58% 8%,
+        72% 0,
+        100% 20%,
+        82% 43%,
+        76% 32%,
+        76% 100%,
+        24% 100%,
+        24% 32%,
+        18% 43%,
+        0 20%
+      );
+      filter: drop-shadow(0 18px 20px rgba(0,0,0,.18));
+      transition: transform .35s ease;
+    }
+
+    .design-card:hover .shirt {
+      transform: scale(1.08) rotate(-2deg);
+    }
+
+    .shirt::after {
+      content: "";
+      position: absolute;
+      inset: 55px 25px auto;
+      height: 3px;
+      background: rgba(99,91,255,.35);
+    }
+
+    .design-number {
+      position: absolute;
+      top: 16px;
+      left: 17px;
+      color: white;
+      font-size: 12px;
+      font-weight: 900;
+      opacity: .8;
+    }
+
+    .favorite {
+      position: absolute;
+      top: 13px;
+      right: 13px;
+      width: 39px;
+      height: 39px;
+      border: 1px solid rgba(255,255,255,.45);
+      background: rgba(0,0,0,.18);
+      color: white;
+      border-radius: 50%;
+      cursor: pointer;
+      backdrop-filter: blur(8px);
+      font-size: 17px;
+      z-index: 2;
+    }
+
+    .favorite.active {
+      background: white;
+      color: #ef426f;
+    }
+
+    .preview-btn {
+      position: absolute;
+      left: 50%;
+      bottom: 16px;
+      transform: translate(-50%, 20px);
+      opacity: 0;
+      border: 0;
+      background: white;
+      color: var(--dark);
+      border-radius: 10px;
+      padding: 10px 15px;
+      cursor: pointer;
+      font-weight: 800;
+      transition: all .25s ease;
+    }
+
+    .design-card:hover .preview-btn {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+
+    .design-info {
+      padding: 18px;
+    }
+
+    .design-info h3 {
+      font-size: 17px;
+      margin-bottom: 4px;
+    }
+
+    .design-meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .tag {
+      color: var(--accent);
+      font-weight: 800;
+    }
+
+    /* EMPTY STATE */
+
+    .empty {
+      display: none;
+      text-align: center;
+      padding: 80px 20px;
+      border: 1px dashed #cfd1d8;
+      border-radius: var(--radius);
+      background: white;
+    }
+
+    .empty h3 {
+      font-size: 24px;
+      margin-bottom: 8px;
+    }
+
+    .empty p {
+      color: var(--muted);
+    }
+
+    /* CTA */
+
+    .library-cta {
+      margin-top: 80px;
+      background: var(--dark);
+      color: white;
+      border-radius: 28px;
+      padding: 65px 30px;
+      text-align: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .library-cta::before {
+      content: "";
+      position: absolute;
+      width: 400px;
+      height: 400px;
+      background: rgba(99,91,255,.22);
+      filter: blur(90px);
+      border-radius: 50%;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%,-50%);
+    }
+
+    .library-cta > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .library-cta h2 {
+      font-size: clamp(32px, 5vw, 55px);
+      letter-spacing: -2px;
+      line-height: 1;
+      margin-bottom: 16px;
+    }
+
+    .library-cta p {
+      color: #aeb2c0;
+      max-width: 600px;
+      margin: auto auto 25px;
+    }
+
+    /* FOOTER */
+
+    footer {
+      background: #0b0c0f;
+      color: white;
+      padding: 65px 0 35px;
+    }
+
+    .footer-inner {
+      width: min(1180px, calc(100% - 40px));
+      margin: auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 50px;
+    }
+
+    .footer-brand .logo {
+      display: inline-block;
+      margin-bottom: 15px;
+    }
+
+    .footer-brand p {
+      color: #858a98;
+      max-width: 300px;
+      font-size: 14px;
+    }
+
+    .footer-column h4 {
+      font-size: 14px;
+      margin-bottom: 18px;
+    }
+
+    .footer-column a {
+      display: block;
+      color: #8b909c;
+      font-size: 13px;
+      margin: 10px 0;
+      transition: color .2s ease;
+    }
+
+    .footer-column a:hover {
+      color: white;
+    }
+
+    .copyright {
+      width: min(1180px, calc(100% - 40px));
+      margin: 50px auto 0;
+      padding-top: 22px;
+      border-top: 1px solid #25272d;
+      color: #6e737e;
+      font-size: 12px;
+    }
+
+    /* MODAL */
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      z-index: 500;
+      background: rgba(0,0,0,.72);
+      backdrop-filter: blur(8px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal.open {
+      display: flex;
+    }
+
+    .modal-box {
+      width: min(850px, 100%);
+      max-height: 90vh;
+      overflow: auto;
+      background: white;
+      border-radius: 24px;
+      box-shadow: 0 30px 90px rgba(0,0,0,.35);
+      animation: modalIn .25s ease;
+    }
+
+    .modal-visual {
+      height: 430px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #17133f, #635bff);
+    }
+
+    .modal-visual .shirt {
+      width: 220px;
+      height: 260px;
+    }
+
+    .modal-content {
+      padding: 25px;
+    }
+
+    .modal-content h2 {
+      font-size: 28px;
+      margin-bottom: 7px;
+    }
+
+    .modal-content p {
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+
+    .modal-close {
+      float: right;
+      width: 38px;
+      height: 38px;
+      border: 0;
+      background: #f1f1f3;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 20px;
+    }
+
+    /* ANIMATIONS */
+
+    @keyframes cardIn {
+      from {
+        opacity: 0;
+        transform: translateY(15px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes modalIn {
+      from {
+        opacity: 0;
+        transform: scale(.96) translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    /* RESPONSIVE */
+
+    @media (max-width: 900px) {
+      .nav-links {
+        display: none;
+      }
+
+      .design-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .footer-inner {
+        grid-template-columns: 1.5fr 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .nav-inner,
+      .hero-inner,
+      .library,
+      .footer-inner,
+      .copyright {
+        width: min(100% - 28px, 1180px);
+      }
+
+      .nav-inner {
+        min-height: 64px;
+      }
+
+      .login {
+        display: none;
+      }
+
+      .library-hero {
+        padding: 60px 0 40px;
+      }
+
+      .library-hero h1 {
+        font-size: 48px;
+        letter-spacing: -2.5px;
+      }
+
+      .hero-copy {
+        font-size: 16px;
+      }
+
+      .search-box {
+        flex-wrap: wrap;
+      }
+
+      .search-icon {
+        display: none;
+      }
+
+      .search-box input {
+        width: 100%;
+        flex-basis: 100%;
+      }
+
+      .search-button {
+        width: 100%;
+      }
+
+      .library-top {
+        align-items: start;
+        flex-direction: column;
+      }
+
+      .design-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .design-visual {
+        height: 300px;
+      }
+
+      .footer-inner {
+        grid-template-columns: 1fr 1fr;
+        gap: 35px 20px;
+      }
+
+      .footer-brand {
+        grid-column: 1 / -1;
+      }
+
+      .modal-visual {
+        height: 320px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVIGATION -->
+  <header class="nav">
+    <div class="nav-inner">
+
+      <a href="index.html" class="logo">
+        KUL<span>EX</span>O
+      </a>
+
+      <nav class="nav-links">
+        <a href="designs.html">Designs</a>
+        <a href="index.html#categories">Categories</a>
+        <a href="index.html#why-kulexo">Why KULEXO</a>
+        <a href="index.html#pricing">Pricing</a>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="#" class="login">Log in</a>
+        <a href="index.html#pricing" class="btn btn-dark">Get Started</a>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <main>
+
+    <section class="library-hero">
+      <div class="hero-inner">
+
+        <div class="eyebrow">
+          KULEXO DESIGN LIBRARY
+        </div>
+
+        <h1>
+          Explore designs.<br>
+          <span>Create faster.</span>
+        </h1>
+
+        <p class="hero-copy">
+          Discover professional apparel and sportswear concepts built
+          for designers, creators and modern apparel businesses.
+        </p>
+
+        <div class="search-box">
+          <span class="search-icon">⌕</span>
+
+          <input
+            id="searchInput"
+            type="search"
+            placeholder="Search jersey, football, cricket, sublimation..."
+            autocomplete="off"
+          >
+
+          <button class="search-button" id="searchButton">
+            Search
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- LIBRARY -->
+    <section class="library">
+
+      <div class="library-top">
+        <div>
+          <h2>All designs.</h2>
+          <p id="resultText">Showing 6 professional design concepts</p>
+        </div>
+
+        <select class="sort" id="sortSelect">
+          <option value="featured">Featured</option>
+          <option value="az">A — Z</option>
+          <option value="za">Z — A</option>
+        </select>
+      </div>
+
+      <!-- FILTERS -->
+      <div class="filters" id="filters">
+
+        <button class="filter active" data-filter="all">
+          All
+        </button>
+
+        <button class="filter" data-filter="Cricket">
+          Cricket
+        </button>
+
+        <button class="filter" data-filter="Football">
+          Football
+        </button>
+
+        <button class="filter" data-filter="Basketball">
+          Basketball
+        </button>
+
+        <button class="filter" data-filter="Esports">
+          Esports
+        </button>
+
+        <button class="filter" data-filter="Sublimation">
+          Sublimation
+        </button>
+
+        <button class="filter" data-filter="T-Shirts">
+          T-Shirts
+        </button>
+
+      </div>
+
+      <!-- DESIGN GRID -->
+      <div class="design-grid" id="designGrid">
+
+        <article class="design-card" data-category="Cricket" data-name="Modern Performance Jersey">
+
+          <div class="design-visual visual-1">
+
+            <span class="design-number">01</span>
+
+            <button class="favorite" aria-label="Add to favorites">
+              ♡
+            </button>
+
+            <div class="shirt"></div>
+
+            <button class="preview-btn" data-title="Modern Performance Jersey" data-category="Cricket">
+              Quick Preview
+            </button>
+
+          </div>
+
+          <div class="design-info">
+            <h3>Modern Performance Jersey</h3>
+
+            <div class="design-meta">
+              <span>Cricket</span>
+              <span class="tag">Vector</span>
+            </div>
+          </div>
+
+        </article>
+
+
+        <article class="design-card" data-category="Football" data-name="Elite Football Kit">
+
+          <div class="design-visual visual-2">
+
+            <span class="design-number">02</span>
+
+            <button class="favorite" aria-label="Add to favorites">
+              ♡
+            </button>
+
+            <div class="shirt"></div>
+
+            <button class="preview-btn" data-title="Elite Football Kit" data-category="Football">
+              Quick Preview
+            </button>
+
+          </div>
+
+          <div class="design-info">
+            <h3>Elite Football Kit</h3>
+
+            <div class="design-meta">
+              <span>Football</span>
+              <span class="tag">Vector</span>
+            </div>
+          </div>
+
+        </article>
+
+
+        <article class="design-card" data-category="Basketball" data-name="Premium Gold Concept">
+
+          <div class="design-visual visual-3">
+
+            <span class="design-number">03</span>
+
+            <button class="favorite" aria-label="Add to favorites">
+              ♡
+            </button>
+
+            <div class="shirt"></div>
+
+            <button class="preview-btn" data-title="Premium Gold Concept" data-category="Basketball">
+              Quick Preview
+            </button>
+
+          </div>
+
+          <div class="design-info">
+            <h3>Premium Gold Concept</h3>
+
+            <div class="design-meta">
+              <span>Basketball</span>
+              <span class="tag">AI Ready</span>
+            </div>
+          </div>
+
+        </article>
+
+
+        <article class="design-card" data-category="Esports" data-name="Velocity Performance">
+
+          <div class="design-visual visual-4">
+
+            <span class="design-number">04</span>
+
+            <button class="favorite" aria-label="Add to favorites">
+              ♡
+            </button>
+
+            <div class="shirt"></div>
+
+            <button class="preview-btn" data-title="Velocity Performance" data-category="Esports">
+              Quick Preview
+            </button>
+
+          </div>
+
+          <div class="design-info">
+            <h3>Velocity Performance</h3>
+
+            <div class="design-meta">
+              <span>Esports</span>
+              <span class="tag">Vector</span>
+            </div>
+          </div>
+
+        </article>
+
+
+        <article class="design-card" data-category="Sublimation" data-name="Urban Team Collection">
+
+          <div class="design-visual visual-5">
+
+            <span class="design-number">05</span>
+
+            <button class="favorite" aria-label="Add to favorites">
+              ♡
+            </button>
+
+            <div class="shirt"></div>
+
+            <button class="preview-btn" data-title="Urban Team Collection" data-category="Sublimation">
+              Quick Preview
+            </button>
+
+          </div>
+
+          <div class="design-info">
+            <h3>Urban Team Collection</h3>
+
+            <div class="design-meta">
+              <span>Sublimation</span>
+              <span class="tag">Premium</span>
+            </div>
+          </div>
+
+        </article>
+
+
+        <article class="design-card" data-category="T-Shirts" data-name="Pro Green Collection">
+
+          <div class="design-visual visual-6">
+
+            <span class="design-number">06</span>
+
+            <button class="favorite" aria-label="Add to favorites">
+              ♡
+            </button>
+
+            <div class="shirt"></div>
+
+            <button class="preview-btn" data-title="Pro Green Collection" data-category="T-Shirts">
+              Quick Preview
+            </button>
+
+          </div>
+
+          <div class="design-info">
+            <h3>Pro Green Collection</h3>
+
+            <div class="design-meta">
+              <span>T-Shirts</span>
+              <span class="tag">Vector</span>
+            </div>
+          </div>
+
+        </article>
+
+      </div>
+
+      <!-- EMPTY -->
+      <div class="empty" id="emptyState">
+        <h3>No designs found.</h3>
+        <p>Try another keyword or choose a different category.</p>
+      </div>
+
+      <!-- CTA -->
+      <div class="library-cta">
+
+        <h2>
+          Your next design<br>
+          starts here.
+        </h2>
+
+        <p>
+          Explore the growing KULEXO ecosystem and find the right
+          starting point for your next apparel project.
+        </p>
+
+        <a href="index.html" class="btn btn-accent">
+          Back to KULEXO →
+        </a>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+
+    <div class="footer-inner">
+
+      <div class="footer-brand">
+
+        <a href="index.html" class="logo">
+          KUL<span>EX</span>O
+        </a>
+
+        <p>
+          Professional apparel design resources for creators,
+          designers and businesses.
+        </p>
+
+      </div>
+
+      <div class="footer-column">
+        <h4>Explore</h4>
+        <a href="designs.html">Designs</a>
+        <a href="index.html#categories">Categories</a>
+        <a href="index.html#pricing">Pricing</a>
+        <a href="#">New releases</a>
+      </div>
+
+      <div class="footer-column">
+        <h4>KULEXO</h4>
+        <a href="index.html#why-kulexo">Why KULEXO</a>
+        <a href="#">About</a>
+        <a href="#">Contact</a>
+        <a href="#">FAQ</a>
+      </div>
+
+      <div class="footer-column">
+        <h4>Legal</h4>
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">License</a>
+        <a href="#">Refunds</a>
+      </div>
+
+    </div>
+
+    <div class="copyright">
+      © 2026 KULEXO. All rights reserved.
+    </div>
+
+  </footer>
+
+
+  <!-- PREVIEW MODAL -->
+  <div class="modal" id="previewModal">
+
+    <div class="modal-box">
+
+      <div class="modal-visual" id="modalVisual">
+        <button class="modal-close" id="modalClose">×</button>
+        <div class="shirt"></div>
+      </div>
+
+      <div class="modal-content">
+
+        <h2 id="modalTitle">
+          Design Preview
+        </h2>
+
+        <p id="modalCategory">
+          Professional apparel design concept.
+        </p>
+
+        <button class="btn btn-dark" id="modalAction">
+          View design
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <script>
+    const searchInput = document.getElementById("searchInput");
+    const searchButton = document.getElementById("searchButton");
+    const designGrid = document.getElementById("designGrid");
+    const cards = Array.from(document.querySelectorAll(".design-card"));
+    const filters = document.querySelectorAll(".filter");
+    const resultText = document.getElementById("resultText");
+    const emptyState = document.getElementById("emptyState");
+    const sortSelect = document.getElementById("sortSelect");
+
+    let activeCategory = "all";
+
+    function updateLibrary() {
+      const query = searchInput.value.trim().toLowerCase();
+
+      let visibleCards = cards.filter(card => {
+        const category = card.dataset.category.toLowerCase();
+        const name = card.dataset.name.toLowerCase();
+
+        const matchesCategory =
+          activeCategory === "all" ||
+          category === activeCategory.toLowerCase();
+
+        const matchesSearch =
+          !query ||
+          name.includes(query) ||
+          category.includes(query);
+
+        return matchesCategory && matchesSearch;
+      });
+
+      const sort = sortSelect.value;
+
+      if (sort === "az") {
+        visibleCards.sort((a, b) =>
+          a.dataset.name.localeCompare(b.dataset.name)
+        );
+      }
+
+      if (sort === "za") {
+        visibleCards.sort((a, b) =>
+          b.dataset.name.localeCompare(a.dataset.name)
+        );
+      }
+
+      cards.forEach(card => {
+        card.style.display = "none";
+      });
+
+      visibleCards.forEach((card, index) => {
+        card.style.display = "";
+        card.style.animationDelay = `${index * 45}ms`;
+      });
+
+      resultText.textContent =
+        `Showing ${visibleCards.length} professional design concept${visibleCards.length === 1 ? "" : "s"}`;
+
+      emptyState.style.display =
+        visibleCards.length === 0 ? "block" : "none";
+    }
+
+    searchInput.addEventListener("input", updateLibrary);
+
+    searchButton.addEventListener("click", () => {
+      updateLibrary();
+      document.querySelector(".library").scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+    });
+
+    filters.forEach(filter => {
+      filter.addEventListener("click", () => {
+
+        filters.forEach(item =>
+          item.classList.remove("active")
+        );
+
+        filter.classList.add("active");
+
+        activeCategory = filter.dataset.filter;
+
+        updateLibrary();
+      });
+    });
+
+    sortSelect.addEventListener("change", updateLibrary);
+
+
+    /* FAVORITES */
+
+    document.querySelectorAll(".favorite").forEach(button => {
+
+      button.addEventListener("click", event => {
+
+        event.stopPropagation();
+
+        button.classList.toggle("active");
+
+        button.textContent =
+          button.classList.contains("active") ? "♥" : "♡";
+      });
+
+    });
+
+
+    /* PREVIEW MODAL */
+
+    const modal = document.getElementById("previewModal");
+    const modalClose = document.getElementById("modalClose");
+    const modalTitle = document.getElementById("modalTitle");
+    const modalCategory = document.getElementById("modalCategory");
+    const modalVisual = document.getElementById("modalVisual");
+
+    document.querySelectorAll(".preview-btn").forEach(button => {
+
+      button.addEventListener("click", event => {
+
+        event.stopPropagation();
+
+        modalTitle.textContent =
+          button.dataset.title;
+
+        modalCategory.textContent =
+          `${button.dataset.category} · Professional KULEXO design concept`;
+
+        modal.classList.add("open");
+
+        document.body.style.overflow = "hidden";
+      });
+
+    });
+
+    function closeModal() {
+      modal.classList.remove("open");
+      document.body.style.overflow = "";
+    }
+
+    modalClose.addEventListener("click", closeModal);
+
+    modal.addEventListener("click", event => {
+      if (event.target === modal) {
+        closeModal();
+      }
+    });
+
+    document.addEventListener("keydown", event => {
+      if (event.key === "Escape") {
+        closeModal();
+      }
+    });
+
+
+    /* INITIAL LOAD */
+
+    updateLibrary();
+  </script>
+
+</body>
+</html>
