@@ -802,8 +802,314 @@
         width: 100%;
       }
     }
-  </style>
-</head>
+/* ================================
+   KULEXO — PREMIUM CATEGORY SECTION
+   ================================ */
+
+.kulexo-categories {
+  padding: 110px 0 120px;
+  background:
+    radial-gradient(circle at 15% 20%, rgba(99, 91, 255, 0.08), transparent 32%),
+    #f7f7f5;
+}
+
+.kulexo-categories .container {
+  width: min(1180px, calc(100% - 48px));
+  margin: 0 auto;
+}
+
+.kulexo-category-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 40px;
+  margin-bottom: 46px;
+}
+
+.kulexo-eyebrow {
+  display: inline-block;
+  margin-bottom: 14px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  color: var(--accent);
+}
+
+.kulexo-category-heading h2 {
+  margin: 0;
+  font-size: clamp(42px, 5vw, 68px);
+  line-height: 0.98;
+  letter-spacing: -0.055em;
+  color: #101114;
+}
+
+.kulexo-category-heading > p {
+  max-width: 390px;
+  margin: 0 0 5px;
+  color: #686b73;
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+.kulexo-category-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+
+.kulexo-category-card {
+  position: relative;
+  min-height: 285px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  border: 1px solid #e4e4e8;
+  border-radius: 24px;
+  background: #ffffff;
+  color: #101114;
+  text-decoration: none;
+  box-shadow: 0 8px 30px rgba(16, 17, 20, 0.04);
+  transition:
+    transform 280ms ease,
+    box-shadow 280ms ease,
+    border-color 280ms ease;
+}
+
+.kulexo-category-card.featured {
+  grid-column: span 2;
+  min-height: 330px;
+}
+
+.kulexo-category-card.wide {
+  grid-column: span 2;
+}
+
+.kulexo-category-card:hover {
+  transform: translateY(-7px);
+  border-color: rgba(99, 91, 255, 0.35);
+  box-shadow: 0 22px 55px rgba(16, 17, 20, 0.12);
+}
+
+.category-visual {
+  position: relative;
+  flex: 1;
+  min-height: 190px;
+  padding: 24px;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+  color: white;
+  isolation: isolate;
+}
+
+.category-visual::before,
+.category-visual::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(2px);
+  opacity: 0.65;
+  z-index: -1;
+}
+
+.category-visual::before {
+  width: 190px;
+  height: 190px;
+  right: -45px;
+  top: -55px;
+  background: rgba(255,255,255,0.14);
+}
+
+.category-visual::after {
+  width: 140px;
+  height: 140px;
+  left: 20%;
+  bottom: -80px;
+  background: rgba(255,255,255,0.10);
+}
+
+.category-visual span {
+  position: absolute;
+  top: 22px;
+  right: 24px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  opacity: 0.7;
+}
+
+.category-visual strong {
+  font-size: clamp(25px, 3vw, 42px);
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.cricket {
+  background: linear-gradient(135deg, #171a32, #5146d8);
+}
+
+.football {
+  background: linear-gradient(135deg, #111827, #2563eb);
+}
+
+.basketball {
+  background: linear-gradient(135deg, #30150c, #e46b2e);
+}
+
+.esports {
+  background: linear-gradient(135deg, #160c2d, #9333ea);
+}
+
+.sublimation {
+  background: linear-gradient(135deg, #062c2c, #08a89a);
+}
+
+.tshirts {
+  background: linear-gradient(135deg, #171717, #525252);
+}
+
+.sportswear {
+  background: linear-gradient(135deg, #15151d, #635bff);
+}
+
+.category-info {
+  min-height: 86px;
+  padding: 19px 21px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  background: #ffffff;
+}
+
+.category-info h3 {
+  margin: 0 0 5px;
+  font-size: 19px;
+  letter-spacing: -0.025em;
+}
+
+.category-info p {
+  margin: 0;
+  color: #777a82;
+  font-size: 13px;
+}
+
+.category-arrow {
+  width: 38px;
+  height: 38px;
+  flex: 0 0 38px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #e4e4e8;
+  border-radius: 50%;
+  font-size: 18px;
+  transition:
+    background 220ms ease,
+    color 220ms ease,
+    transform 220ms ease;
+}
+
+.kulexo-category-card:hover .category-arrow {
+  background: #101114;
+  color: #ffffff;
+  transform: rotate(8deg);
+}
+
+.kulexo-category-card.more {
+  min-height: 285px;
+  padding: 27px;
+  background: #101114;
+  color: #ffffff;
+  border-color: #101114;
+}
+
+.more-content span {
+  display: block;
+  margin-bottom: 55px;
+  font-size: 42px;
+  font-weight: 300;
+  line-height: 1;
+}
+
+.more-content h3 {
+  margin: 0 0 7px;
+  font-size: 23px;
+  letter-spacing: -0.035em;
+}
+
+.more-content p {
+  margin: 0;
+  color: #a6a8b0;
+  font-size: 13px;
+}
+
+.kulexo-category-card.more .category-arrow {
+  position: absolute;
+  right: 25px;
+  bottom: 25px;
+  border-color: #36373d;
+}
+
+/* Tablet */
+@media (max-width: 900px) {
+  .kulexo-category-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .kulexo-category-card.featured,
+  .kulexo-category-card.wide {
+    grid-column: span 2;
+  }
+
+  .kulexo-category-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 15px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .kulexo-categories {
+    padding: 75px 0 85px;
+  }
+
+  .kulexo-categories .container {
+    width: min(100% - 28px, 1180px);
+  }
+
+  .kulexo-category-heading h2 {
+    font-size: 42px;
+  }
+
+  .kulexo-category-heading > p {
+    font-size: 15px;
+  }
+
+  .kulexo-category-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .kulexo-category-card,
+  .kulexo-category-card.featured,
+  .kulexo-category-card.wide {
+    grid-column: span 1;
+    min-height: 270px;
+  }
+
+  .category-visual {
+    min-height: 180px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kulexo-category-card,
+  .category-arrow {
+    transition: none;
+  }
+}</head>
 
 <body>
 
@@ -872,71 +1178,133 @@
 
 
     <!-- CATEGORIES -->
-    <section id="categories">
-      <div class="container">
+    <section id="categories" class="kulexo-categories">
+  <div class="container">
 
-        <div class="section-head">
-          <div>
-            <h2>Explore by category.</h2>
-          </div>
-          <p>
-            Find the right starting point for your next apparel project.
-          </p>
+    <div class="kulexo-category-heading">
+      <div>
+        <span class="kulexo-eyebrow">KULEXO DESIGN LIBRARY</span>
+        <h2>Explore by category.</h2>
+      </div>
+
+      <p>
+        Find professional apparel and sportswear designs
+        for your next creative project.
+      </p>
+    </div>
+
+    <div class="kulexo-category-grid">
+
+      <a class="kulexo-category-card featured" href="#">
+        <div class="category-visual cricket">
+          <span>01</span>
+          <strong>CRICKET</strong>
         </div>
-
-        <div class="categories">
-
-          <a class="category" href="#">
-            <div class="category-icon">🏏</div>
+        <div class="category-info">
+          <div>
             <h3>Cricket</h3>
             <p>Jerseys & teamwear</p>
-          </a>
-
-          <a class="category" href="#">
-            <div class="category-icon">⚽</div>
-            <h3>Football</h3>
-            <p>Professional kits</p>
-          </a>
-
-          <a class="category" href="#">
-            <div class="category-icon">🏀</div>
-            <h3>Basketball</h3>
-            <p>Modern team designs</p>
-          </a>
-
-          <a class="category" href="#">
-            <div class="category-icon">🎮</div>
-            <h3>Esports</h3>
-            <p>Gaming apparel</p>
-          </a>
-
-          <a class="category" href="#">
-            <div class="category-icon">👕</div>
-            <h3>T-Shirts</h3>
-            <p>Creative apparel</p>
-          </a>
-
-          <a class="category" href="#">
-            <div class="category-icon">✦</div>
-            <h3>Sublimation</h3>
-            <p>Print-ready concepts</p>
-          </a>
-
-          <a class="category" href="#">
-            <div class="category-icon">🧥</div>
-            <h3>Tracksuits</h3>
-            <p>Complete collections</p>
-          </a>
-
-          <a class="category" href="#">
-            <div class="category-icon">＋</div>
-            <h3>More</h3>
-            <p>Explore everything</p>
-          </a>
-
+          </div>
+          <span class="category-arrow">↗</span>
         </div>
-      </div>
-    </section>
+      </a>
+
+      <a class="kulexo-category-card featured" href="#">
+        <div class="category-visual football">
+          <span>02</span>
+          <strong>FOOTBALL</strong>
+        </div>
+        <div class="category-info">
+          <div>
+            <h3>Football</h3>
+            <p>Professional team designs</p>
+          </div>
+          <span class="category-arrow">↗</span>
+        </div>
+      </a>
+
+      <a class="kulexo-category-card" href="#">
+        <div class="category-visual basketball">
+          <span>03</span>
+          <strong>BASKETBALL</strong>
+        </div>
+        <div class="category-info">
+          <div>
+            <h3>Basketball</h3>
+            <p>Modern jersey concepts</p>
+          </div>
+          <span class="category-arrow">↗</span>
+        </div>
+      </a>
+
+      <a class="kulexo-category-card" href="#">
+        <div class="category-visual esports">
+          <span>04</span>
+          <strong>ESPORTS</strong>
+        </div>
+        <div class="category-info">
+          <div>
+            <h3>Esports</h3>
+            <p>Bold competitive apparel</p>
+          </div>
+          <span class="category-arrow">↗</span>
+        </div>
+      </a>
+
+      <a class="kulexo-category-card" href="#">
+        <div class="category-visual sublimation">
+          <span>05</span>
+          <strong>SUBLIMATION</strong>
+        </div>
+        <div class="category-info">
+          <div>
+            <h3>Sublimation</h3>
+            <p>All-over print designs</p>
+          </div>
+          <span class="category-arrow">↗</span>
+        </div>
+      </a>
+
+      <a class="kulexo-category-card" href="#">
+        <div class="category-visual tshirts">
+          <span>06</span>
+          <strong>T-SHIRTS</strong>
+        </div>
+        <div class="category-info">
+          <div>
+            <h3>T-Shirts</h3>
+            <p>Creative everyday apparel</p>
+          </div>
+          <span class="category-arrow">↗</span>
+        </div>
+      </a>
+
+      <a class="kulexo-category-card wide" href="#">
+        <div class="category-visual sportswear">
+          <span>07</span>
+          <strong>SPORTSWEAR</strong>
+        </div>
+        <div class="category-info">
+          <div>
+            <h3>Sportswear</h3>
+            <p>Performance-ready design resources</p>
+          </div>
+          <span class="category-arrow">↗</span>
+        </div>
+      </a>
+
+      <a class="kulexo-category-card more" href="#">
+        <div class="more-content">
+          <span>+</span>
+          <h3>Explore everything</h3>
+          <p>10,000+ design resources</p>
+        </div>
+        <span class="category-arrow">↗</span>
+      </a>
+
+    </div>
+  </div>
+</section>
 
 
     <!-- DESIGNS -->
