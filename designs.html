@@ -345,6 +345,15 @@
   display: block;
   object-fit: cover;
     }
+    .design-asset {
+  transition: transform .35s ease, filter .35s ease;
+  transform: translateY(0) scale(1) rotate(0deg);
+}
+
+.design-card:hover .design-asset {
+  transform: translateY(-4px) scale(1.04) rotate(-1deg);
+  filter: drop-shadow(0 18px 20px rgba(0, 0, 0, .18));
+}
     .visual-1 {
       background: linear-gradient(135deg, #17133f, #635bff);
     }
