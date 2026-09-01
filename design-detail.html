@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Modern Performance Jersey — KULEXO</title>
+  <meta
+    name="description"
+    content="Explore the Modern Performance Jersey design concept on KULEXO."
+  >
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #f7f7f5;
+      --surface: #ffffff;
+      --dark: #101114;
+      --muted: #697080;
+      --line: #e3e4e8;
+      --accent: #635bff;
+      --accent-dark: #5148e8;
+      --soft: #eeeeff;
+      --radius: 24px;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family:
+        Inter, ui-sans-serif, system-ui, -apple-system,
+        BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--dark);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font: inherit;
+      cursor: pointer;
+    }
+
+    .container {
+      width: min(1180px, calc(100% - 48px));
+      margin: 0 auto;
+    }
+
+    /* NAV */
+
+    .nav {
+      height: 76px;
+      background: rgba(255, 255, 255, 0.92);
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(16px);
+    }
+
+    .nav-inner {
+      width: min(1180px, calc(100% - 48px));
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: -1.4px;
+    }
+
+    .logo span {
+      color: var(--accent);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 34px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #30333b;
+    }
+
+    .nav-links a {
+      transition: color 0.2s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .login {
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .nav-cta {
+      border: 0;
+      background: var(--dark);
+      color: white;
+      padding: 13px 21px;
+      border-radius: 13px;
+      font-weight: 700;
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    .nav-cta:hover {
+      transform: translateY(-2px);
+      background: #25262b;
+    }
+
+    /* BREADCRUMB */
+
+    .breadcrumb {
+      padding: 34px 0 10px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .breadcrumb a:hover {
+      color: var(--accent);
+    }
+
+    .breadcrumb strong {
+      color: var(--dark);
+    }
+
+    /* HERO */
+
+    .detail {
+      padding: 26px 0 100px;
+    }
+
+    .detail-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.18fr) minmax(380px, 0.82fr);
+      gap: 64px;
+      align-items: start;
+    }
+
+    /* DESIGN VISUAL */
+
+    .visual-wrap {
+      position: sticky;
+      top: 108px;
+    }
+
+    .design-visual {
+      min-height: 650px;
+      border-radius: 30px;
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background:
+        radial-gradient(circle at 25% 20%, rgba(99, 91, 255, 0.55), transparent 35%),
+        linear-gradient(135deg, #17144d 0%, #3931a8 50%, #625bff 100%);
+      box-shadow: 0 30px 70px rgba(29, 26, 92, 0.18);
+    }
+
+    .visual-grid {
+      position: absolute;
+      inset: 0;
+      opacity: 0.12;
+      background-image:
+        linear-gradient(rgba(255,255,255,.35) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.35) 1px, transparent 1px);
+      background-size: 48px 48px;
+    }
+
+    .design-number {
+      position: absolute;
+      top: 28px;
+      left: 30px;
+      color: rgba(255,255,255,.72);
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    .visual-badge {
+      position: absolute;
+      top: 26px;
+      right: 26px;
+      background: rgba(255,255,255,.94);
+      color: var(--dark);
+      padding: 11px 16px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 800;
+      box-shadow: 0 8px 24px rgba(0,0,0,.12);
+    }
+
+    .jersey {
+      width: 310px;
+      height: 360px;
+      position: relative;
+      filter: drop-shadow(0 28px 28px rgba(0,0,0,.2));
+      transform: rotate(-2deg);
+      transition: transform .4s ease;
+    }
+
+    .design-visual:hover .jersey {
+      transform: rotate(0deg) scale(1.03);
+    }
+
+    .jersey-body {
+      position: absolute;
+      left: 75px;
+      top: 62px;
+      width: 160px;
+      height: 255px;
+      background: #f8f8ff;
+      clip-path: polygon(
+        18% 0,
+        38% 0,
+        44% 8%,
+        56% 8%,
+        62% 0,
+        82% 0,
+        100% 18%,
+        82% 32%,
+        82% 100%,
+        18% 100%,
+        18% 32%,
+        0 18%
+      );
+    }
+
+    .jersey-stripe {
+      position: absolute;
+      left: 89px;
+      top: 118px;
+      width: 132px;
+      height: 5px;
+      background: #aaa4ff;
+      z-index: 2;
+    }
+
+    .jersey-label {
+      position: absolute;
+      left: 50%;
+      top: 178px;
+      transform: translateX(-50%);
+      color: #4038b5;
+      font-size: 18px;
+      font-weight: 900;
+      letter-spacing: 1px;
+      z-index: 3;
+    }
+
+    .visual-bottom {
+      position: absolute;
+      left: 28px;
+      bottom: 26px;
+      color: white;
+      font-size: 12px;
+      font-weight: 700;
+      opacity: .78;
+    }
+
+    /* INFO */
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--soft);
+      color: var(--accent);
+      border: 1px solid #ddd9ff;
+      padding: 8px 13px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 800;
+      margin-bottom: 22px;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    h1 {
+      font-size: clamp(42px, 5vw, 68px);
+      line-height: .98;
+      letter-spacing: -3.5px;
+      max-width: 650px;
+      margin-bottom: 22px;
+    }
+
+    .intro {
+      color: var(--muted);
+      font-size: 17px;
+      max-width: 570px;
+      margin-bottom: 30px;
+    }
+
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 34px;
+    }
+
+    .meta span {
+      border: 1px solid var(--line);
+      background: white;
+      padding: 9px 13px;
+      border-radius: 10px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #505663;
+    }
+
+    .actions {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 38px;
+    }
+
+    .primary-btn,
+    .secondary-btn {
+      border-radius: 13px;
+      padding: 15px 21px;
+      font-weight: 800;
+      border: 1px solid var(--dark);
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+
+    .primary-btn {
+      background: var(--dark);
+      color: white;
+    }
+
+    .secondary-btn {
+      background: white;
+      color: var(--dark);
+    }
+
+    .primary-btn:hover,
+    .secondary-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(0,0,0,.08);
+    }
+
+    /* INFO CARDS */
+
+    .info-card {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 24px;
+      margin-bottom: 14px;
+    }
+
+    .info-card h3 {
+      font-size: 15px;
+      margin-bottom: 16px;
+    }
+
+    .info-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 11px 0;
+      border-bottom: 1px solid #eeeeef;
+      font-size: 13px;
+    }
+
+    .info-row:last-child {
+      border-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .info-row span:first-child {
+      color: var(--muted);
+    }
+
+    .info-row strong {
+      font-weight: 700;
+    }
+
+    /* RELATED */
+
+    .related {
+      padding: 90px 0 110px;
+      background: white;
+      border-top: 1px solid var(--line);
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      margin-bottom: 30px;
+    }
+
+    .section-head h2 {
+      font-size: 38px;
+      line-height: 1;
+      letter-spacing: -2px;
+    }
+
+    .section-head p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .related-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .related-card {
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      overflow: hidden;
+      background: white;
+      transition: transform .25s ease, box-shadow .25s ease;
+    }
+
+    .related-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 18px 40px rgba(0,0,0,.08);
+    }
+
+    .related-visual {
+      height: 260px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #24215e, #635bff);
+    }
+
+    .related-card:nth-child(2) .related-visual {
+      background: linear-gradient(135deg, #d8d8dc, #aeb0b9);
+    }
+
+    .related-card:nth-child(3) .related-visual {
+      background: linear-gradient(135deg, #51421e, #b79235);
+    }
+
+    .mini-jersey {
+      width: 125px;
+      height: 150px;
+      background: white;
+      clip-path: polygon(
+        18% 0,
+        38% 0,
+        44% 8%,
+        56% 8%,
+        62% 0,
+        82% 0,
+        100% 18%,
+        82% 32%,
+        82% 100%,
+        18% 100%,
+        18% 32%,
+        0 18%
+      );
+      filter: drop-shadow(0 16px 16px rgba(0,0,0,.18));
+    }
+
+    .related-content {
+      padding: 18px;
+    }
+
+    .related-content h3 {
+      font-size: 15px;
+      margin-bottom: 5px;
+    }
+
+    .related-content p {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    /* CTA */
+
+    .cta {
+      padding: 90px 0;
+      background: var(--bg);
+    }
+
+    .cta-box {
+      background:
+        radial-gradient(circle at 50% 0%, rgba(99,91,255,.22), transparent 45%),
+        #101114;
+      color: white;
+      border-radius: 30px;
+      padding: 76px 30px;
+      text-align: center;
+    }
+
+    .cta-box h2 {
+      font-size: clamp(38px, 5vw, 58px);
+      line-height: 1;
+      letter-spacing: -3px;
+      max-width: 650px;
+      margin: 0 auto 18px;
+    }
+
+    .cta-box p {
+      color: #aeb2bd;
+      max-width: 570px;
+      margin: 0 auto 28px;
+    }
+
+    .cta-btn {
+      display: inline-flex;
+      background: var(--accent);
+      color: white;
+      border: 0;
+      padding: 14px 22px;
+      border-radius: 12px;
+      font-weight: 800;
+      transition: transform .2s ease;
+    }
+
+    .cta-btn:hover {
+      transform: translateY(-2px);
+    }
+
+    /* FOOTER */
+
+    footer {
+      background: #0b0c0e;
+      color: white;
+      padding: 65px 0 35px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.6fr 1fr 1fr 1fr;
+      gap: 40px;
+      padding-bottom: 50px;
+    }
+
+    .footer-brand p {
+      color: #8f949f;
+      font-size: 13px;
+      max-width: 290px;
+      margin-top: 16px;
+    }
+
+    .footer-col h4 {
+      font-size: 13px;
+      margin-bottom: 17px;
+    }
+
+    .footer-col a {
+      display: block;
+      color: #8f949f;
+      font-size: 13px;
+      margin-bottom: 10px;
+      transition: color .2s ease;
+    }
+
+    .footer-col a:hover {
+      color: white;
+    }
+
+    .footer-bottom {
+      border-top: 1px solid #25272b;
+      padding-top: 25px;
+      color: #70747d;
+      font-size: 12px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    /* RESPONSIVE */
+
+    @media (max-width: 900px) {
+      .nav-links {
+        display: none;
+      }
+
+      .detail-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .visual-wrap {
+        position: static;
+      }
+
+      .design-visual {
+        min-height: 520px;
+      }
+
+      .related-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .footer-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .container,
+      .nav-inner {
+        width: min(100% - 28px, 1180px);
+      }
+
+      .nav {
+        height: 68px;
+      }
+
+      .login {
+        display: none;
+      }
+
+      .nav-cta {
+        padding: 11px 15px;
+        font-size: 12px;
+      }
+
+      .detail {
+        padding-bottom: 70px;
+      }
+
+      h1 {
+        font-size: 43px;
+        letter-spacing: -2.4px;
+      }
+
+      .intro {
+        font-size: 15px;
+      }
+
+      .design-visual {
+        min-height: 420px;
+        border-radius: 22px;
+      }
+
+      .jersey {
+        transform: scale(.78);
+      }
+
+      .design-visual:hover .jersey {
+        transform: scale(.81);
+      }
+
+      .actions {
+        flex-direction: column;
+      }
+
+      .primary-btn,
+      .secondary-btn {
+        width: 100%;
+      }
+
+      .related-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .section-head {
+        display: block;
+      }
+
+      .section-head p {
+        margin-top: 10px;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 30px 20px;
+      }
+
+      .footer-brand {
+        grid-column: 1 / -1;
+      }
+
+      .footer-bottom {
+        display: block;
+      }
+
+      .footer-bottom span {
+        display: block;
+        margin-bottom: 6px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAV -->
+  <header class="nav">
+    <div class="nav-inner">
+
+      <a href="index.html" class="logo">
+        KUL<span>EX</span>O
+      </a>
+
+      <nav class="nav-links">
+        <a href="designs.html">Designs</a>
+        <a href="index.html#categories">Categories</a>
+        <a href="index.html#why-kulexo">Why KULEXO</a>
+        <a href="index.html#pricing">Pricing</a>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="#" class="login">Log in</a>
+        <a href="#" class="nav-cta">Get Started</a>
+      </div>
+
+    </div>
+  </header>
+
+
+  <!-- BREADCRUMB -->
+  <main>
+    <div class="container">
+      <div class="breadcrumb">
+        <a href="index.html">Home</a>
+        <span> / </span>
+        <a href="designs.html">Designs</a>
+        <span> / </span>
+        <strong>Modern Performance Jersey</strong>
+      </div>
+    </div>
+
+
+    <!-- DESIGN DETAIL -->
+    <section class="detail">
+      <div class="container">
+
+        <div class="detail-grid">
+
+          <!-- VISUAL -->
+          <div class="visual-wrap">
+
+            <div class="design-visual">
+
+              <div class="visual-grid"></div>
+
+              <div class="design-number">
+                01
+              </div>
+
+              <div class="visual-badge">
+                ✦ Premium Design
+              </div>
+
+              <div class="jersey">
+                <div class="jersey-body"></div>
+                <div class="jersey-stripe"></div>
+                <div class="jersey-label">
+                  KULEXO
+                </div>
+              </div>
+
+              <div class="visual-bottom">
+                KULEXO / PERFORMANCE COLLECTION
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <!-- INFORMATION -->
+          <div class="detail-info">
+
+            <div class="eyebrow">
+              KULEXO DESIGN LIBRARY
+            </div>
+
+            <h1>
+              Modern Performance Jersey.
+            </h1>
+
+            <p class="intro">
+              A clean, professional performance jersey concept
+              created for modern cricket teams, apparel brands
+              and competitive sportswear collections.
+            </p>
+
+            <div class="meta">
+              <span>Cricket</span>
+              <span>Vector</span>
+              <span>Sportswear</span>
+              <span>Premium Ready</span>
+            </div>
+
+            <div class="actions">
+              <button class="primary-btn" onclick="showMessage()">
+                View / Download Design →
+              </button>
+
+              <button class="secondary-btn" onclick="saveDesign(this)">
+                ♡ Save Design
+              </button>
+            </div>
+
+
+            <div class="info-card">
+
+              <h3>Design information</h3>
+
+              <div class="info-row">
+                <span>Category</span>
+                <strong>Cricket</strong>
+              </div>
+
+              <div class="info-row">
+                <span>Format</span>
+                <strong>Vector</strong>
+              </div>
+
+              <div class="info-row">
+                <span>Collection</span>
+                <strong>Performance</strong>
+              </div>
+
+              <div class="info-row">
+                <span>License</span>
+                <strong>Coming soon</strong>
+              </div>
+
+            </div>
+
+
+            <div class="info-card">
+
+              <h3>Built for creators</h3>
+
+              <div class="info-row">
+                <span>Apparel production</span>
+                <strong>✓</strong>
+              </div>
+
+              <div class="info-row">
+                <span>Sportswear projects</span>
+                <strong>✓</strong>
+              </div>
+
+              <div class="info-row">
+                <span>Customization ready</span>
+                <strong>✓</strong>
+              </div>
+
+              <div class="info-row">
+                <span>Commercial workflow</span>
+                <strong>✓</strong>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- RELATED DESIGNS -->
+    <section class="related">
+      <div class="container">
+
+        <div class="section-head">
+          <div>
+            <h2>More designs.</h2>
+          </div>
+
+          <p>
+            Explore more concepts from the KULEXO library.
+          </p>
+        </div>
+
+
+        <div class="related-grid">
+
+          <a href="#" class="related-card">
+
+            <div class="related-visual">
+              <div class="mini-jersey"></div>
+            </div>
+
+            <div class="related-content">
+              <h3>Elite Football Kit</h3>
+              <p>Football · Vector</p>
+            </div>
+
+          </a>
+
+
+          <a href="#" class="related-card">
+
+            <div class="related-visual">
+              <div class="mini-jersey"></div>
+            </div>
+
+            <div class="related-content">
+              <h3>Urban Team Collection</h3>
+              <p>Esports · Premium</p>
+            </div>
+
+          </a>
+
+
+          <a href="#" class="related-card">
+
+            <div class="related-visual">
+              <div class="mini-jersey"></div>
+            </div>
+
+            <div class="related-content">
+              <h3>Premium Gold Concept</h3>
+              <p>Basketball · AI Ready</p>
+            </div>
+
+          </a>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- CTA -->
+    <section class="cta">
+      <div class="container">
+
+        <div class="cta-box">
+
+          <h2>
+            Find your next design starting point.
+          </h2>
+
+          <p>
+            Explore professional apparel concepts and build
+            your next collection faster with KULEXO.
+          </p>
+
+          <a href="designs.html" class="cta-btn">
+            Explore Designs →
+          </a>
+
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+
+  <!-- FOOTER -->
+  <footer>
+
+    <div class="container">
+
+      <div class="footer-grid">
+
+        <div class="footer-brand">
+          <div class="logo">
+            KUL<span>EX</span>O
+          </div>
+
+          <p>
+            Professional apparel design resources for
+            creators, designers and modern apparel businesses.
+          </p>
+        </div>
+
+
+        <div class="footer-col">
+          <h4>Explore</h4>
+          <a href="designs.html">Designs</a>
+          <a href="index.html#categories">Categories</a>
+          <a href="index.html#pricing">Pricing</a>
+          <a href="#">New releases</a>
+        </div>
+
+
+        <div class="footer-col">
+          <h4>KULEXO</h4>
+          <a href="index.html#why-kulexo">Why KULEXO</a>
+          <a href="#">About</a>
+          <a href="#">Contact</a>
+          <a href="#">FAQ</a>
+        </div>
+
+
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
+          <a href="#">License</a>
+          <a href="#">Refunds</a>
+        </div>
+
+      </div>
+
+
+      <div class="footer-bottom">
+        <span>© 2026 KULEXO. All rights reserved.</span>
+        <span>Professional design resources.</span>
+      </div>
+
+    </div>
+
+  </footer>
+
+
+  <script>
+    function showMessage() {
+      alert(
+        "KULEXO Download System\n\n" +
+        "The real design download will be connected when the KULEXO Design Library and licensing system are ready."
+      );
+    }
+
+    function saveDesign(button) {
+      const saved = button.dataset.saved === "true";
+
+      if (saved) {
+        button.innerHTML = "♡ Save Design";
+        button.dataset.saved = "false";
+      } else {
+        button.innerHTML = "♥ Saved";
+        button.dataset.saved = "true";
+      }
+    }
+  </script>
+
+</body>
+</html>
