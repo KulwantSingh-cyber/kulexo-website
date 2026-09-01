@@ -1246,15 +1246,16 @@
     }
     if (meta[3]) meta[3].textContent = formatAccess(design.access);
 
-    const infoValues = document.querySelectorAll(
-      ".info-card:first-of-type .info-row strong"
-    );
+    const infoCards = document.querySelectorAll(".detail-info .info-card");
+const infoValues = infoCards[0]
+  ? infoCards[0].querySelectorAll(".info-row strong")
+  : [];
 
-    if (infoValues[0]) infoValues[0].textContent = design.category;
-    if (infoValues[1]) infoValues[1].textContent = design.type;
-    if (infoValues[2]) infoValues[2].textContent = design.collection;
-    if (infoValues[3]) infoValues[3].textContent =
-      formatLicense(design.license);
+if (infoValues[0]) infoValues[0].textContent = design.category;
+if (infoValues[1]) infoValues[1].textContent = design.type;
+if (infoValues[2]) infoValues[2].textContent = design.collection;
+if (infoValues[3]) infoValues[3].textContent =
+  formatLicense(design.license);
 
     renderVisual(design);
     updateRelatedDesigns(designs);
@@ -1278,16 +1279,23 @@
       const designs = data.designs || [];
 
       let design = designs.find(item => {
-        return (
-          item.id === requestedDesign ||
-          slugify(item.name) === requestedDesign
-        );
-      });
+  return (
+    item.id === requestedDesign ||
+    slugify(item.name) === requestedDesign
+  );
+});
 
-      if (!design) {
-        design = designs[0];
-      }
+if (!requestedDesign) {
+  design = designs[0];
+} else if (!design) {
+  document.querySelector(".detail-info h1").textContent =
+    "Design Not Found.";
 
+  document.querySelector(".detail-info .intro").textContent =
+    "The requested KULEXO design could not be found.";
+
+  return;
+}
       updatePage(design, designs);
     } catch (error) {
       console.error("KULEXO design loader error:", error);
