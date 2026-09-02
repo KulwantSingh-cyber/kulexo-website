@@ -1,0 +1,145 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 900">
+  <defs>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#fff4b0"/>
+      <stop offset="35%" stop-color="#d8ad3d"/>
+      <stop offset="70%" stop-color="#9b7220"/>
+      <stop offset="100%" stop-color="#f2d56b"/>
+    </linearGradient>
+
+    <linearGradient id="black" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#202020"/>
+      <stop offset="100%" stop-color="#080808"/>
+    </linearGradient>
+
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="18" stdDeviation="16"
+        flood-color="#000000" flood-opacity=".35"/>
+    </filter>
+  </defs>
+
+  <!-- Jersey shadow -->
+  <ellipse cx="400" cy="820" rx="245" ry="28"
+    fill="#000" opacity=".22"/>
+
+  <!-- Jersey -->
+  <g filter="url(#shadow)">
+    
+    <!-- Left sleeve -->
+    <path d="M260 190
+             L145 245
+             L65 365
+             L185 430
+             L275 335
+             Z"
+          fill="url(#black)"/>
+
+    <!-- Right sleeve -->
+    <path d="M540 190
+             L655 245
+             L735 365
+             L615 430
+             L525 335
+             Z"
+          fill="url(#black)"/>
+
+    <!-- Main body -->
+    <path d="M260 190
+             L330 155
+             L400 205
+             L470 155
+             L540 190
+             L585 330
+             L555 785
+             L245 785
+             L215 330
+             Z"
+          fill="url(#black)"/>
+
+    <!-- Gold shoulder panels -->
+    <path d="M260 190 L330 155 L400 205 L350 270 L235 330 L215 330 Z"
+          fill="url(#gold)"/>
+
+    <path d="M540 190 L470 155 L400 205 L450 270 L565 330 L585 330 Z"
+          fill="url(#gold)"/>
+
+    <!-- Gold center stripe -->
+    <path d="M365 250 L435 250 L465 785 L335 785 Z"
+          fill="url(#gold)"
+          opacity=".95"/>
+
+    <!-- Neck -->
+    <path d="M330 155
+             Q400 220 470 155
+             L450 245
+             Q400 275 350 245
+             Z"
+          fill="#111"/>
+
+    <path d="M350 174
+             Q400 220 450 174
+             L442 215
+             Q400 240 358 215
+             Z"
+          fill="url(#gold)"/>
+
+    <!-- Chest accent -->
+    <path d="M245 330 L555 330"
+          stroke="#f1d36b"
+          stroke-width="8"
+          opacity=".9"/>
+
+    <!-- KULEXO wordmark -->
+    <text x="400" y="410"
+          text-anchor="middle"
+          font-family="Arial, Helvetica, sans-serif"
+          font-size="48"
+          font-weight="800"
+          letter-spacing="5"
+          fill="#ffffff">
+      KULEXO
+    </text>
+
+    <!-- Number -->
+    <text x="400" y="555"
+          text-anchor="middle"
+          font-family="Arial, Helvetica, sans-serif"
+          font-size="150"
+          font-weight="900"
+          fill="url(#gold)">
+      03
+    </text>
+
+    <!-- Basketball-inspired lines -->
+    <path d="M285 625 Q400 550 515 625"
+          fill="none"
+          stroke="#ffffff"
+          stroke-width="5"
+          opacity=".8"/>
+
+    <path d="M300 650 Q400 590 500 650"
+          fill="none"
+          stroke="#ffffff"
+          stroke-width="3"
+          opacity=".55"/>
+
+    <!-- Bottom gold panel -->
+    <path d="M245 720 L555 720 L555 785 L245 785 Z"
+          fill="#111"/>
+
+    <path d="M245 720 L555 720"
+          stroke="url(#gold)"
+          stroke-width="7"/>
+
+    <text x="400" y="760"
+          text-anchor="middle"
+          font-family="Arial, Helvetica, sans-serif"
+          font-size="20"
+          font-weight="700"
+          letter-spacing="4"
+          fill="#e6c75b">
+      PREMIUM BASKETBALL
+    </text>
+
+  </g>
+</svg>
