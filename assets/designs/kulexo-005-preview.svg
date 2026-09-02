@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 900">
+  <defs>
+    <linearGradient id="black" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#24202b"/>
+      <stop offset="100%" stop-color="#09080c"/>
+    </linearGradient>
+
+    <linearGradient id="purple" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#d9b6ff"/>
+      <stop offset="35%" stop-color="#8d4cff"/>
+      <stop offset="70%" stop-color="#5420b8"/>
+      <stop offset="100%" stop-color="#b77cff"/>
+    </linearGradient>
+
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="18" stdDeviation="16"
+        flood-color="#000000" flood-opacity=".4"/>
+    </filter>
+  </defs>
+
+  <ellipse cx="400" cy="820" rx="245" ry="28"
+    fill="#000" opacity=".25"/>
+
+  <g filter="url(#shadow)">
+
+    <!-- Left sleeve -->
+    <path d="M260 190 L145 245 L65 365 L185 430 L275 335 Z"
+      fill="url(#black)"/>
+
+    <!-- Right sleeve -->
+    <path d="M540 190 L655 245 L735 365 L615 430 L525 335 Z"
+      fill="url(#black)"/>
+
+    <!-- Main body -->
+    <path d="M260 190 L330 155 L400 205 L470 155 L540 190
+             L585 330 L555 785 L245 785 L215 330 Z"
+      fill="url(#black)"/>
+
+    <!-- Purple shoulder panels -->
+    <path d="M260 190 L330 155 L400 205 L350 270
+             L235 330 L215 330 Z"
+      fill="url(#purple)"/>
+
+    <path d="M540 190 L470 155 L400 205 L450 270
+             L565 330 L585 330 Z"
+      fill="url(#purple)"/>
+
+    <!-- Center stripe -->
+    <path d="M365 250 L435 250 L465 785 L335 785 Z"
+      fill="url(#purple)" opacity=".92"/>
+
+    <!-- Collar -->
+    <path d="M330 155 Q400 220 470 155
+             L450 245 Q400 275 350 245 Z"
+      fill="#0b0910"/>
+
+    <path d="M350 174 Q400 220 450 174
+             L442 215 Q400 240 358 215 Z"
+      fill="url(#purple)"/>
+
+    <!-- Urban side panels -->
+    <path d="M215 330 L285 300 L245 785 L185 785 Z"
+      fill="#17131e"/>
+
+    <path d="M585 330 L515 300 L555 785 L615 785 Z"
+      fill="#17131e"/>
+
+    <!-- Geometric purple accents -->
+    <path d="M185 430 L280 375 L265 430 L190 480 Z"
+      fill="#8d4cff"/>
+
+    <path d="M615 430 L520 375 L535 430 L610 480 Z"
+      fill="#8d4cff"/>
+
+    <!-- Chest line -->
+    <path d="M245 330 L555 330"
+      stroke="#b77cff"
+      stroke-width="7"
+      opacity=".9"/>
+
+    <!-- Brand -->
+    <text x="400" y="410"
+      text-anchor="middle"
+      font-family="Arial, Helvetica, sans-serif"
+      font-size="48"
+      font-weight="800"
+      letter-spacing="5"
+      fill="#ffffff">
+      KULEXO
+    </text>
+
+    <!-- Number -->
+    <text x="400" y="555"
+      text-anchor="middle"
+      font-family="Arial, Helvetica, sans-serif"
+      font-size="150"
+      font-weight="900"
+      fill="url(#purple)">
+      05
+    </text>
+
+    <!-- Urban graphic -->
+    <path d="M285 625 L515 570"
+      stroke="#ffffff"
+      stroke-width="6"
+      opacity=".8"/>
+
+    <path d="M300 650 L500 605"
+      stroke="#8d4cff"
+      stroke-width="4"
+      opacity=".8"/>
+
+    <!-- Bottom band -->
+    <path d="M245 720 L555 720 L555 785 L245 785 Z"
+      fill="#08070b"/>
+
+    <path d="M245 720 L555 720"
+      stroke="url(#purple)"
+      stroke-width="7"/>
+
+    <!-- Label -->
+    <text x="400" y="760"
+      text-anchor="middle"
+      font-family="Arial, Helvetica, sans-serif"
+      font-size="20"
+      font-weight="700"
+      letter-spacing="4"
+      fill="#c99cff">
+      URBAN TEAM COLLECTION
+    </text>
+
+  </g>
+</svg>
