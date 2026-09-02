@@ -1327,20 +1327,44 @@
 
     document.querySelectorAll(".preview-btn").forEach(button => {
 
-      button.addEventListener("click", event => {
+  button.addEventListener("click", event => {
 
-        event.stopPropagation();
+    event.stopPropagation();
 
-        modalTitle.textContent =
-          button.dataset.title;
+    const card = button.closest(".design-card");
+    const visual = card ? card.querySelector(".design-visual") : null;
+    const image = visual ? visual.querySelector(".design-asset") : null;
 
-        modalCategory.textContent =
-          `${button.dataset.category} · Professional KULEXO design concept`;
+    modalTitle.textContent = button.dataset.title;
 
-        modal.classList.add("open");
+    modalCategory.textContent =
+      `${button.dataset.category} · Professional KULEXO design concept`;
 
-        document.body.style.overflow = "hidden";
-      });
+    if (image) {
+      const oldShirt = modalVisual.querySelector(".shirt");
+
+      if (oldShirt) {
+        oldShirt.style.display = "none";
+      }
+
+      let modalImage = modalVisual.querySelector(".modal-design-asset");
+
+      if (!modalImage) {
+        modalImage = document.createElement("img");
+        modalImage.className = "modal-design-asset";
+        modalVisual.appendChild(modalImage);
+      }
+
+      modalImage.src = image.src;
+      modalImage.alt = image.alt;
+    }
+
+    modal.classList.add("open");
+
+    document.body.style.overflow = "hidden";
+  });
+
+});
 
     });
 
