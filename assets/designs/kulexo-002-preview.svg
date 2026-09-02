@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 900">
+  <defs>
+    <linearGradient id="navy" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#17243d"/>
+      <stop offset="100%" stop-color="#070b14"/>
+    </linearGradient>
+
+    <linearGradient id="blue" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#8fd7ff"/>
+      <stop offset="35%" stop-color="#238fe0"/>
+      <stop offset="70%" stop-color="#1254a0"/>
+      <stop offset="100%" stop-color="#58baff"/>
+    </linearGradient>
+
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="18" stdDeviation="16"
+        flood-color="#000000" flood-opacity=".38"/>
+    </filter>
+  </defs>
+
+  <ellipse cx="400" cy="820" rx="245" ry="28"
+    fill="#000" opacity=".24"/>
+
+  <g filter="url(#shadow)">
+
+    <!-- Left sleeve -->
+    <path d="M260 190 L145 245 L65 365 L185 430 L275 335 Z"
+      fill="url(#navy)"/>
+
+    <!-- Right sleeve -->
+    <path d="M540 190 L655 245 L735 365 L615 430 L525 335 Z"
+      fill="url(#navy)"/>
+
+    <!-- Main football jersey -->
+    <path d="M260 190 L330 155 L400 205 L470 155 L540 190
+             L585 330 L555 785 L245 785 L215 330 Z"
+      fill="url(#navy)"/>
+
+    <!-- Blue shoulder panels -->
+    <path d="M260 190 L330 155 L400 205 L350 270
+             L235 330 L215 330 Z"
+      fill="url(#blue)"/>
+
+    <path d="M540 190 L470 155 L400 205 L450 270
+             L565 330 L585 330 Z"
+      fill="url(#blue)"/>
+
+    <!-- Center stripe -->
+    <path d="M365 250 L435 250 L465 785 L335 785 Z"
+      fill="url(#blue)" opacity=".9"/>
+
+    <!-- Collar -->
+    <path d="M330 155 Q400 220 470 155
+             L450 245 Q400 275 350 245 Z"
+      fill="#080d18"/>
+
+    <path d="M350 174 Q400 220 450 174
+             L442 215 Q400 240 358 215 Z"
+      fill="url(#blue)"/>
+
+    <!-- Side panels -->
+    <path d="M215 330 L285 300 L245 785 L185 785 Z"
+      fill="#101a2c"/>
+
+    <path d="M585 330 L515 300 L555 785 L615 785 Z"
+      fill="#101a2c"/>
+
+    <!-- Football-style geometric accents -->
+    <path d="M185 430 L280 375 L265 430 L190 480 Z"
+      fill="#238fe0"/>
+
+    <path d="M615 430 L520 375 L535 430 L610 480 Z"
+      fill="#238fe0"/>
+
+    <!-- Chest divider -->
+    <path d="M245 330 L555 330"
+      stroke="#58baff"
+      stroke-width="7"
+      opacity=".9"/>
+
+    <!-- KULEXO -->
+    <text x="400" y="410"
+      text-anchor="middle"
+      font-family="Arial, Helvetica, sans-serif"
+      font-size="48"
+      font-weight="800"
+      letter-spacing="5"
+      fill="#ffffff">
+      KULEXO
+    </text>
+
+    <!-- Number -->
+    <text x="400" y="555"
+      text-anchor="middle"
+      font-family="Arial, Helvetica, sans-serif"
+      font-size="150"
+      font-weight="900"
+      fill="url(#blue)">
+      02
+    </text>
+
+    <!-- Speed graphics -->
+    <path d="M285 625 L515 570"
+      stroke="#ffffff"
+      stroke-width="6"
+      opacity=".82"/>
+
+    <path d="M300 650 L500 605"
+      stroke="#238fe0"
+      stroke-width="4"
+      opacity=".8"/>
+
+    <!-- Bottom band -->
+    <path d="M245 720 L555 720 L555 785 L245 785 Z"
+      fill="#060a12"/>
+
+    <path d="M245 720 L555 720"
+      stroke="url(#blue)"
+      stroke-width="7"/>
+
+    <!-- Label -->
+    <text x="400" y="760"
+      text-anchor="middle"
+      font-family="Arial, Helvetica, sans-serif"
+      font-size="20"
+      font-weight="700"
+      letter-spacing="4"
+      fill="#69c5ff">
+      ELITE FOOTBALL KIT
+    </text>
+
+  </g>
+</svg>
