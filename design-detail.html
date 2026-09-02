@@ -1303,28 +1303,38 @@ if (!requestedDesign) {
   }
 
   function showMessage() {
-    const name = currentDesign
-      ? currentDesign.name
-      : "this KULEXO design";
+  if (!currentDesign || !currentDesign.preview) return;
 
-    alert(
-      "KULEXO Download System\\n\\n" +
-      `${name}\\n\\n` +
-      "The real design download will be connected when the KULEXO Design Library and licensing system are ready."
-    );
+  const link = document.createElement("a");
+  link.href = currentDesign.preview;
+  link.download = `${currentDesign.id || "kulexo-design"}-preview.svg`;
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+}
+
+function saveDesign(button) {
+  if (!currentDesign) return;
+
+  const saved = JSON.parse(
+    localStorage.getItem("kulexoSavedDesigns") || "[]"
+  );
+
+  const index = saved.indexOf(currentDesign.id);
+
+  if (index === -1) {
+    saved.push(currentDesign.id);
+    button.innerHTML = "♡ Saved";
+  } else {
+    saved.splice(index, 1);
+    button.innerHTML = "♡ Save Design";
   }
 
-  function saveDesign(button) {
-    const saved = button.dataset.saved === "true";
-
-    if (saved) {
-      button.innerHTML = "♡ Save Design";
-      button.dataset.saved = "false";
-    } else {
-      button.innerHTML = "♥ Saved";
-      button.dataset.saved = "true";
-    }
-  }
+  localStorage.setItem(
+    "kulexoSavedDesigns",
+    JSON.stringify(saved)
+  );
+}
 
   loadDesign();
 </script>
