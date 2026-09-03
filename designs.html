@@ -1312,20 +1312,51 @@
 
     /* FAVORITES */
 
-    document.querySelectorAll(".favorite").forEach(button => {
+   const savedDesigns = JSON.parse(
+  localStorage.getItem("kulexoSavedDesigns") || "[]"
+);
 
-      button.addEventListener("click", event => {
+document.querySelectorAll(".favorite").forEach(button => {
 
-        event.preventDefault();
-        event.stopPropagation();
+  const card = button.closest(".design-card");
 
-        button.classList.toggle("active");
+  if (!card) return;
 
-        button.textContent =
-          button.classList.contains("active") ? "♥" : "♡";
-      });
+  const link = card.getAttribute("href");
+  const params = new URLSearchParams(link.split("?")[1] || "");
+  const designId = params.get("design");
 
-    });
+  if (designId && savedDesigns.includes(designId)) {
+    button.classList.add("active");
+    button.textContent = "♥";
+  }
+
+  button.addEventListener("click", event => {
+
+    event.preventDefault();
+    event.stopPropagation();
+
+    if (!designId) return;
+
+    const index = savedDesigns.indexOf(designId);
+
+    if (index === -1) {
+      savedDesigns.push(designId);
+      button.classList.add("active");
+      button.textContent = "♥";
+    } else {
+      savedDesigns.splice(index, 1);
+      button.classList.remove("active");
+      button.textContent = "♡";
+    }
+
+    localStorage.setItem(
+      "kulexoSavedDesigns",
+      JSON.stringify(savedDesigns)
+    );
+  });
+
+});
 
 
     /* PREVIEW MODAL */
