@@ -1752,6 +1752,95 @@
       }
     });
   </script>
+ 
+  <script>
+/* KULEXO FINAL NAVIGATION FIX */
 
+document.addEventListener("DOMContentLoaded", () => {
+
+  /* CATEGORY CARDS */
+  const categoryMap = {
+    "Cricket": "cricket",
+    "Football": "football",
+    "Basketball": "basketball",
+    "Esports": "esports",
+    "Sublimation": "sublimation",
+    "T-Shirts": "t-shirts"
+  };
+
+  document.querySelectorAll("section, main").forEach(section => {
+    section.querySelectorAll("article, a, .category-card, .category").forEach(card => {
+      const text = card.textContent.trim();
+
+      for (const [name, slug] of Object.entries(categoryMap)) {
+        if (
+          text.includes(name) &&
+          !text.includes("Featured designs") &&
+          !text.includes("Explore by category")
+        ) {
+          const link = card.tagName === "A" ? card : card.querySelector("a");
+
+          if (link) {
+            link.href = `designs.html?category=${slug}`;
+          } else {
+            card.style.cursor = "pointer";
+            card.addEventListener("click", () => {
+              window.location.href = `designs.html?category=${slug}`;
+            });
+          }
+
+          break;
+        }
+      }
+    });
+  });
+
+  /* FEATURED DESIGNS */
+  const featuredMap = {
+    "Modern Performance Jersey":
+      "design-detail.html?design=modern-performance-jersey",
+
+    "Elite Football Kit":
+      "design-detail.html?design=elite-football-kit",
+
+    "Premium Gold Concept":
+      "design-detail.html?design=premium-gold-concept",
+
+    "Velocity Performance":
+      "design-detail.html?design=velocity-performance",
+
+    "Urban Team Collection":
+      "design-detail.html?design=urban-team-collection",
+
+    "Pro Green Collection":
+      "design-detail.html?design=pro-green-collection"
+  };
+
+  document.querySelectorAll(".design").forEach(card => {
+    const title = card.querySelector("h3");
+
+    if (!title) return;
+
+    const href = featuredMap[title.textContent.trim()];
+
+    if (!href) return;
+
+    const existingLink = card.closest("a") || card.querySelector("a");
+
+    if (existingLink) {
+      existingLink.href = href;
+    } else {
+      card.style.cursor = "pointer";
+
+      card.addEventListener("click", event => {
+        if (event.target.closest("button")) return;
+        window.location.href = href;
+      });
+    }
+  });
+
+});
+</script>
+  
 </body>
 </html>
