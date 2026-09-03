@@ -1201,7 +1201,7 @@
       })
       .join("");
   }
-
+  
   function updatePage(design, designs) {
     currentDesign = design;
 
@@ -1259,8 +1259,24 @@ if (infoValues[3]) infoValues[3].textContent =
 
     renderVisual(design);
     updateRelatedDesigns(designs);
+    syncSavedState();
   }
+function syncSavedState() {
+  if (!currentDesign) return;
 
+  const savedDesigns = JSON.parse(
+    localStorage.getItem("kulexoSavedDesigns") || "[]"
+  );
+
+  const button = document.querySelector(".actions .secondary-btn");
+
+  if (!button) return;
+
+  const isSaved = savedDesigns.includes(currentDesign.id);
+
+  button.dataset.saved = isSaved ? "true" : "false";
+  button.innerHTML = isSaved ? "♡ Saved" : "♡ Save Design";
+}
   async function loadDesign() {
     addDynamicStyles();
 
