@@ -911,7 +911,7 @@
       <!-- DESIGN GRID -->
       <div class="design-grid" id="designGrid">
 
-       <a href="design-detail.html?design=modern-performance-jersey" class="design-card" data-category="Cricket" data-name="Modern Performance Jersey">
+       <a href="design-detail.html?design=modern-performance-jersey" class="design-card" data-design-id="kulexo-001" data-category="Cricket" data-name="Modern Performance Jersey">
 
           <div class="design-visual visual-1">
 
@@ -944,7 +944,7 @@
         </a>
 
 
-        <a href="design-detail.html?design=elite-football-kit" class="design-card" data-category="Football" data-name="Elite Football Kit">
+        <a href="design-detail.html?design=elite-football-kit" class="design-card" data-design-id="kulexo-002" data-category="Football" data-name="Elite Football Kit">
 
           <div class="design-visual visual-2">
 
@@ -977,7 +977,7 @@
         </a>
 
 
-        <a href="design-detail.html?design=premium-gold-concept" class="design-card" data-category="Basketball" data-name="Premium Gold Concept">
+        <a href="design-detail.html?design=premium-gold-concept" class="design-card" data-design-id="kulexo-003" data-category="Basketball" data-name="Premium Gold Concept">
 
           <div class="design-visual visual-3">
 
@@ -1010,7 +1010,7 @@
         </a>
 
 
-        <a href="design-detail.html?design=velocity-performance" class="design-card" data-category="Esports" data-name="Velocity Performance">
+        <a href="design-detail.html?design=velocity-performance" class="design-card" data-design-id="kulexo-004" data-category="Esports" data-name="Velocity Performance">
 
           <div class="design-visual visual-4">
 
@@ -1043,7 +1043,7 @@
         </a>
 
 
-        <a href="design-detail.html?design=urban-team-collection" class="design-card" data-category="Sublimation" data-name="Urban Team Collection">
+        <a href="design-detail.html?design=urban-team-collection" class="design-card" data-design-id="kulexo-005" data-category="Sublimation" data-name="Urban Team Collection">
 
           <div class="design-visual visual-5">
 
@@ -1076,7 +1076,7 @@
         </a>
 
 
-        <a href="design-detail.html?design=pro-green-collection" class="design-card" data-category="T-Shirts" data-name="Pro Green Collection">
+        <a href="design-detail.html?design=pro-green-collection" class="design-card" data-design-id="kulexo-006" data-category="T-Shirts" data-name="Pro Green Collection">
 
           <div class="design-visual visual-6">
 
@@ -1233,6 +1233,22 @@
 
     let activeCategory = "all";
 
+    const requestedCategory = new URLSearchParams(window.location.search)
+      .get("category")
+      ?.trim()
+      .toLowerCase();
+
+    const requestedFilter = Array.from(filters).find(filter =>
+      filter.dataset.filter.toLowerCase() === requestedCategory
+    );
+
+    if (requestedFilter) {
+      activeCategory = requestedFilter.dataset.filter;
+      filters.forEach(filter =>
+        filter.classList.toggle("active", filter === requestedFilter)
+      );
+    }
+
     function updateLibrary() {
       const query = searchInput.value.trim().toLowerCase();
 
@@ -1312,9 +1328,34 @@
 
     /* FAVORITES */
 
-   const savedDesigns = JSON.parse(
-  localStorage.getItem("kulexoSavedDesigns") || "[]"
-);
+    const savedStorageKey = "kulexoSavedDesigns";
+
+    function getDesignSlug(card) {
+      const link = card.getAttribute("href");
+      return new URLSearchParams(link.split("?")[1] || "").get("design");
+    }
+
+    function normalizeSavedDesigns() {
+      const savedDesigns = JSON.parse(
+        localStorage.getItem(savedStorageKey) || "[]"
+      );
+
+      const canonicalIds = [...new Set(savedDesigns.map(savedDesign => {
+        const matchingCard = cards.find(card =>
+          getDesignSlug(card) === savedDesign
+        );
+
+        return matchingCard ? matchingCard.dataset.designId : savedDesign;
+      }))];
+
+      if (JSON.stringify(canonicalIds) !== JSON.stringify(savedDesigns)) {
+        localStorage.setItem(savedStorageKey, JSON.stringify(canonicalIds));
+      }
+
+      return canonicalIds;
+    }
+
+    const savedDesigns = normalizeSavedDesigns();
 
 document.querySelectorAll(".favorite").forEach(button => {
 
@@ -1322,9 +1363,7 @@ document.querySelectorAll(".favorite").forEach(button => {
 
   if (!card) return;
 
-  const link = card.getAttribute("href");
-  const params = new URLSearchParams(link.split("?")[1] || "");
-  const designId = params.get("design");
+  const designId = card.dataset.designId;
 
   if (designId && savedDesigns.includes(designId)) {
     button.classList.add("active");
@@ -1351,7 +1390,7 @@ document.querySelectorAll(".favorite").forEach(button => {
     }
 
     localStorage.setItem(
-      "kulexoSavedDesigns",
+      savedStorageKey,
       JSON.stringify(savedDesigns)
     );
   });

@@ -1059,6 +1059,83 @@
       "linear-gradient(135deg, #173822 0%, #4caf6b 100%)"
   };
 
+  // Keeps Detail pages functional when the site is opened directly from disk,
+  // where browsers block fetch() requests for the JSON catalogue.
+  const fallbackDesigns = [
+    {
+      id: "kulexo-001",
+      name: "Modern Performance Jersey",
+      category: "Cricket",
+      type: "Vector",
+      collection: "Performance",
+      access: "free",
+      description: "A clean, professional performance jersey concept created for modern cricket teams, apparel brands and competitive sportswear collections.",
+      preview: "assets/designs/kulexo-001-preview.svg",
+      license: "coming-soon",
+      tags: ["cricket", "jersey", "sportswear", "performance", "vector"]
+    },
+    {
+      id: "kulexo-002",
+      name: "Elite Football Kit",
+      category: "Football",
+      type: "Vector",
+      collection: "Elite",
+      access: "free",
+      description: "A modern football kit concept designed for professional teams and contemporary sportswear collections.",
+      preview: "assets/designs/kulexo-002-preview.svg",
+      license: "coming-soon",
+      tags: ["football", "kit", "sportswear", "vector"]
+    },
+    {
+      id: "kulexo-003",
+      name: "Premium Gold Concept",
+      category: "Basketball",
+      type: "AI Ready",
+      collection: "Premium",
+      access: "premium",
+      description: "A premium basketball concept built for high-end apparel and creative sportswear projects.",
+      preview: "assets/designs/kulexo-003-preview.svg",
+      license: "coming-soon",
+      tags: ["basketball", "premium", "sportswear", "ai-ready"]
+    },
+    {
+      id: "kulexo-004",
+      name: "Velocity Performance",
+      category: "Esports",
+      type: "Vector",
+      collection: "Performance",
+      access: "free",
+      description: "A bold performance concept created for modern competitive esports apparel.",
+      preview: "assets/designs/kulexo-004-preview.svg",
+      license: "coming-soon",
+      tags: ["esports", "performance", "gaming", "vector"]
+    },
+    {
+      id: "kulexo-005",
+      name: "Urban Team Collection",
+      category: "Sublimation",
+      type: "Premium",
+      collection: "Urban",
+      access: "premium",
+      description: "A contemporary teamwear collection designed for sublimation and modern apparel production.",
+      preview: "assets/designs/kulexo-005-preview.svg",
+      license: "coming-soon",
+      tags: ["sublimation", "teamwear", "urban", "premium"]
+    },
+    {
+      id: "kulexo-006",
+      name: "Pro Green Collection",
+      category: "T-Shirts",
+      type: "Vector",
+      collection: "Pro",
+      access: "free",
+      description: "A clean apparel concept for professional T-shirt and casual sportswear projects.",
+      preview: "assets/designs/kulexo-006-preview.svg",
+      license: "coming-soon",
+      tags: ["t-shirts", "apparel", "casual", "vector"]
+    }
+  ];
+
   function slugify(text) {
     return text
       .toLowerCase()
@@ -1283,6 +1360,8 @@ function syncSavedState() {
     const params = new URLSearchParams(window.location.search);
     const requestedDesign = params.get("design");
 
+    let designs = fallbackDesigns;
+
     try {
       const response = await fetch("assets/designs.json");
 
@@ -1292,30 +1371,33 @@ function syncSavedState() {
 
       const data = await response.json();
 
-      const designs = data.designs || [];
-
-      let design = designs.find(item => {
-  return (
-    item.id === requestedDesign ||
-    slugify(item.name) === requestedDesign
-  );
-});
-
-if (!requestedDesign) {
-  design = designs[0];
-} else if (!design) {
-  document.querySelector(".detail-info h1").textContent =
-    "Design Not Found.";
-
-  document.querySelector(".detail-info .intro").textContent =
-    "The requested KULEXO design could not be found.";
-
-  return;
-}
-      updatePage(design, designs);
+      if (Array.isArray(data.designs) && data.designs.length) {
+        designs = data.designs;
+      }
     } catch (error) {
-      console.error("KULEXO design loader error:", error);
+      console.warn("KULEXO design loader using local fallback:", error);
     }
+
+    let design = designs.find(item => {
+      return (
+        item.id === requestedDesign ||
+        slugify(item.name) === requestedDesign
+      );
+    });
+
+    if (!requestedDesign) {
+      design = designs[0];
+    } else if (!design) {
+      document.querySelector(".detail-info h1").textContent =
+        "Design Not Found.";
+
+      document.querySelector(".detail-info .intro").textContent =
+        "The requested KULEXO design could not be found.";
+
+      return;
+    }
+
+    updatePage(design, designs);
   }
 
   function showMessage() {
