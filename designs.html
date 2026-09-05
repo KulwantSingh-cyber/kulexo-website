@@ -813,9 +813,9 @@
         <a href="index.html#pricing">Pricing</a>
       </nav>
 
-      <div class="nav-actions">
-        <a href="#" class="login">Log in</a>
-        <a href="index.html#pricing" class="btn btn-dark">Get Started</a>
+      <div class="nav-actions" data-auth-nav data-cta-class="btn btn-dark">
+        <a href="login.html" class="login">Log in</a>
+        <a href="signup.html" class="btn btn-dark">Sign up</a>
       </div>
 
     </div>
@@ -1326,78 +1326,6 @@
     sortSelect.addEventListener("change", updateLibrary);
 
 
-    /* FAVORITES */
-
-    const savedStorageKey = "kulexoSavedDesigns";
-
-    function getDesignSlug(card) {
-      const link = card.getAttribute("href");
-      return new URLSearchParams(link.split("?")[1] || "").get("design");
-    }
-
-    function normalizeSavedDesigns() {
-      const savedDesigns = JSON.parse(
-        localStorage.getItem(savedStorageKey) || "[]"
-      );
-
-      const canonicalIds = [...new Set(savedDesigns.map(savedDesign => {
-        const matchingCard = cards.find(card =>
-          getDesignSlug(card) === savedDesign
-        );
-
-        return matchingCard ? matchingCard.dataset.designId : savedDesign;
-      }))];
-
-      if (JSON.stringify(canonicalIds) !== JSON.stringify(savedDesigns)) {
-        localStorage.setItem(savedStorageKey, JSON.stringify(canonicalIds));
-      }
-
-      return canonicalIds;
-    }
-
-    const savedDesigns = normalizeSavedDesigns();
-
-document.querySelectorAll(".favorite").forEach(button => {
-
-  const card = button.closest(".design-card");
-
-  if (!card) return;
-
-  const designId = card.dataset.designId;
-
-  if (designId && savedDesigns.includes(designId)) {
-    button.classList.add("active");
-    button.textContent = "♥";
-  }
-
-  button.addEventListener("click", event => {
-
-    event.preventDefault();
-    event.stopPropagation();
-
-    if (!designId) return;
-
-    const index = savedDesigns.indexOf(designId);
-
-    if (index === -1) {
-      savedDesigns.push(designId);
-      button.classList.add("active");
-      button.textContent = "♥";
-    } else {
-      savedDesigns.splice(index, 1);
-      button.classList.remove("active");
-      button.textContent = "♡";
-    }
-
-    localStorage.setItem(
-      savedStorageKey,
-      JSON.stringify(savedDesigns)
-    );
-  });
-
-});
-
-
     /* PREVIEW MODAL */
 
     const modal = document.getElementById("previewModal");
@@ -1470,6 +1398,12 @@ document.querySelectorAll(".favorite").forEach(button => {
     /* INITIAL LOAD */
 
     updateLibrary();
+  </script>
+  <script type="module">
+    import { initAuthNavigation } from "./assets/js/auth.js";
+    import { initDesignGridFavorites } from "./assets/js/saved-designs.js";
+    initAuthNavigation();
+    initDesignGridFavorites();
   </script>
 
 </body>

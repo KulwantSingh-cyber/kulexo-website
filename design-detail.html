@@ -731,9 +731,9 @@
         <a href="index.html#pricing">Pricing</a>
       </nav>
 
-      <div class="nav-actions">
-        <a href="#" class="login">Log in</a>
-        <a href="#" class="nav-cta">Get Started</a>
+      <div class="nav-actions" data-auth-nav data-cta-class="nav-cta">
+        <a href="login.html" class="login">Log in</a>
+        <a href="signup.html" class="nav-cta">Sign up</a>
       </div>
 
     </div>
@@ -1339,20 +1339,7 @@ if (infoValues[3]) infoValues[3].textContent =
     syncSavedState();
   }
 function syncSavedState() {
-  if (!currentDesign) return;
-
-  const savedDesigns = JSON.parse(
-    localStorage.getItem("kulexoSavedDesigns") || "[]"
-  );
-
-  const button = document.querySelector(".actions .secondary-btn");
-
-  if (!button) return;
-
-  const isSaved = savedDesigns.includes(currentDesign.id);
-
-  button.dataset.saved = isSaved ? "true" : "false";
-  button.innerHTML = isSaved ? "♡ Saved" : "♡ Save Design";
+  window.KulexoSavedDesigns?.sync();
 }
   async function loadDesign() {
     addDynamicStyles();
@@ -1411,30 +1398,22 @@ function syncSavedState() {
   link.remove();
 }
 
-function saveDesign(button) {
-  if (!currentDesign) return;
-
-  const saved = JSON.parse(
-    localStorage.getItem("kulexoSavedDesigns") || "[]"
-  );
-
-  const index = saved.indexOf(currentDesign.id);
-
-  if (index === -1) {
-    saved.push(currentDesign.id);
-    button.innerHTML = "♡ Saved";
-  } else {
-    saved.splice(index, 1);
-    button.innerHTML = "♡ Save Design";
+async function saveDesign(button) {
+  try {
+    await window.KulexoSavedDesigns?.toggleCurrentDesign();
+  } catch (error) {
+    console.error("KULEXO save failed:", error);
+    alert("We could not update your saved designs. Please try again.");
   }
-
-  localStorage.setItem(
-    "kulexoSavedDesigns",
-    JSON.stringify(saved)
-  );
 }
 
   loadDesign();
+</script>
+<script type="module">
+  import { initAuthNavigation } from "./assets/js/auth.js";
+  import { initDetailSavedDesign } from "./assets/js/saved-designs.js";
+  initAuthNavigation();
+  initDetailSavedDesign(() => currentDesign?.id);
 </script>
 
 </body>

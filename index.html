@@ -1125,9 +1125,9 @@
         <a href="#pricing">Pricing</a>
       </nav>
 
-      <div class="nav-actions">
-        <a href="#" class="login">Log in</a>
-        <a href="#pricing" class="btn btn-primary">Get Started</a>
+      <div class="nav-actions" data-auth-nav data-cta-class="btn btn-primary">
+        <a href="login.html" class="login">Log in</a>
+        <a href="signup.html" class="btn btn-primary">Sign up</a>
       </div>
     </div>
   </header>
@@ -1797,6 +1797,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 </script>
+  <script type="module">
+    import { initAuthNavigation } from "./assets/js/auth.js";
+    initAuthNavigation();
+  </script>
   
 </body>
 </html>

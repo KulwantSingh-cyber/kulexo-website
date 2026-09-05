@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Log in — KULEXO</title>
+  <style>
+    :root { --ink:#0d0d0d; --paper:#f5f1e9; --accent:#d5ff3f; --muted:#706d67; }
+    * { box-sizing:border-box; } body { margin:0; color:var(--ink); background:var(--paper); font-family:Arial,Helvetica,sans-serif; }
+    .nav { background:var(--ink); padding:20px 6%; } .nav-inner { display:flex; justify-content:space-between; align-items:center; max-width:1180px; margin:auto; }
+    .logo { color:white; text-decoration:none; font-weight:900; letter-spacing:-1px; font-size:22px; } .logo span { color:var(--accent); }
+    .back { color:white; text-decoration:none; font-size:14px; } main { min-height:calc(100vh - 70px); display:grid; place-items:center; padding:50px 20px; }
+    .card { width:min(100%,470px); background:white; padding:42px; border:1px solid #d8d2c7; box-shadow:10px 10px 0 var(--ink); } .eyebrow { color:#5b6e00; font-size:11px; font-weight:700; letter-spacing:1.4px; }
+    h1 { margin:10px 0; font-size:42px; letter-spacing:-2px; } p { line-height:1.55; color:var(--muted); } label { display:block; margin:20px 0 7px; font-size:13px; font-weight:700; }
+    input { width:100%; border:1px solid var(--ink); padding:13px; font:inherit; } button { width:100%; margin-top:24px; padding:14px; border:0; background:var(--ink); color:white; cursor:pointer; font-weight:700; }
+    button:hover { background:#2d2d2d; } .links { display:flex; justify-content:space-between; gap:16px; margin-top:22px; font-size:14px; } a { color:inherit; } .message { min-height:24px; margin-top:18px; color:#5b6e00; font-size:14px; }
+  </style>
+</head>
+<body>
+  <header class="nav"><div class="nav-inner"><a class="logo" href="index.html">KUL<span>EX</span>O</a><a class="back" href="index.html">← Back to KULEXO</a></div></header>
+  <main><section class="card"><div class="eyebrow">KULEXO ACCOUNT</div><h1>Welcome back.</h1><p>Log in to access saved designs and your future account benefits.</p>
+    <form id="loginForm"><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email" required><label for="password">Password</label><input id="password" name="password" type="password" autocomplete="current-password" required><button type="submit">Log in</button></form>
+    <p class="message" id="message" aria-live="polite"></p><div class="links"><a href="forgot-password.html">Forgot password?</a><a href="signup.html">Create an account</a></div>
+  </section></main>
+  <script type="module">
+    import { handleLogin, isSupabaseConfigured } from "./assets/js/auth.js";
+    const form = document.getElementById("loginForm"); const message = document.getElementById("message");
+    form.addEventListener("submit", async event => { event.preventDefault(); if (!isSupabaseConfigured) { message.textContent = "KULEXO account setup is not configured yet."; return; } try { message.textContent = "Logging you in…"; await handleLogin(form, message); } catch (error) { message.textContent = error.message; } });
+  </script>
+</body>
+</html>
