@@ -55,6 +55,12 @@ create trigger profiles_set_updated_at
 alter table public.profiles enable row level security;
 alter table public.saved_designs enable row level security;
 
+-- RLS decides which rows a signed-in customer may access. These grants allow the
+-- authenticated database role to reach the tables so the RLS policies can apply.
+grant usage on schema public to authenticated;
+grant select, update on public.profiles to authenticated;
+grant select, insert, delete on public.saved_designs to authenticated;
+
 drop policy if exists "Users can view their own profile" on public.profiles;
 create policy "Users can view their own profile"
   on public.profiles for select to authenticated
