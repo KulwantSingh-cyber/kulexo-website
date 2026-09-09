@@ -816,7 +816,7 @@
             </div>
 
             <div class="actions">
-              <button class="primary-btn" onclick="showMessage()">
+              <button class="primary-btn" onclick="showMessage()" aria-describedby="downloadNotice">
                 View / Download Design →
               </button>
 
@@ -824,6 +824,7 @@
                 ♡ Save Design
               </button>
             </div>
+            <p id="downloadNotice" class="download-notice" aria-live="polite"></p>
 
 
             <div class="info-card">
@@ -1322,6 +1323,12 @@
           : design.collection;
     }
     if (meta[3]) meta[3].textContent = formatAccess(design.access);
+    const primaryAction = document.querySelector(".primary-btn");
+    if (primaryAction) {
+      primaryAction.textContent = design.access === "premium"
+        ? "Add to cart →"
+        : "View / Download Design →";
+    }
 
     const infoCards = document.querySelectorAll(".detail-info .info-card");
 const infoValues = infoCards[0]
@@ -1389,8 +1396,18 @@ function syncSavedState() {
 
   function showMessage() {
   if (!currentDesign || !currentDesign.preview) return;
+    const notice = document.getElementById("downloadNotice");
+    if (
+      currentDesign.access === "premium" ||
+      (currentDesign.product && currentDesign.product.download_policy !== "public-preview")
+    ) {
+      if (notice) {
+        notice.textContent = "This premium file is protected. Secure checkout and entitlement delivery are not live yet.";
+      }
+      return;
+    }
 
-  const link = document.createElement("a");
+    const link = document.createElement("a");
   link.href = currentDesign.preview;
   link.download = `${currentDesign.id || "kulexo-design"}-preview.svg`;
   document.body.appendChild(link);
@@ -1412,8 +1429,22 @@ async function saveDesign(button) {
 <script type="module">
   import { initAuthNavigation } from "./assets/js/auth.js";
   import { initDetailSavedDesign } from "./assets/js/saved-designs.js";
+  import { getDesignById } from "./assets/js/catalogue.js";
+  import { addToCart } from "./assets/js/cart.js";
   initAuthNavigation();
   initDetailSavedDesign(() => currentDesign?.id);
+  const primaryAction = document.querySelector(".primary-btn");
+  primaryAction?.addEventListener("click", async () => {
+    if (currentDesign?.access !== "premium") return;
+    const product = await getDesignById(currentDesign.id);
+    if (!product?.product?.purchasable) return;
+    try {
+      await addToCart(product.id);
+      document.getElementById("downloadNotice").textContent = "Added to cart. Checkout is not live yet.";
+    } catch (error) {
+      document.getElementById("downloadNotice").textContent = error.message;
+    }
+  });
 </script>
 
 </body>

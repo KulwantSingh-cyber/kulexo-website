@@ -1402,8 +1402,25 @@
   <script type="module">
     import { initAuthNavigation } from "./assets/js/auth.js";
     import { initDesignGridFavorites } from "./assets/js/saved-designs.js";
+    import { getPremiumProducts, formatProductPrice } from "./assets/js/catalogue.js";
     initAuthNavigation();
     initDesignGridFavorites();
+    const premiumProducts = await getPremiumProducts();
+    premiumProducts.forEach(product => {
+      const card = document.querySelector(`[data-design-id="${product.id}"]`);
+      const visual = card?.querySelector(".design-visual");
+      if (!visual) return;
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "preview-btn";
+      button.textContent = formatProductPrice(product) === "Price coming soon"
+        ? "Price coming soon"
+        : `Add to cart · ${formatProductPrice(product)}`;
+      button.disabled = true;
+      button.title = "Checkout is not configured yet";
+      button.addEventListener("click", event => event.preventDefault());
+      visual.appendChild(button);
+    });
   </script>
 
 </body>

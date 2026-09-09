@@ -21,10 +21,11 @@ export async function getCurrentUser() {
 }
 
 function navMarkup(user, ctaClass) {
+  const cartLink = `<a href="cart.html" class="cart-nav-link">Cart <span data-cart-count hidden>0</span></a>`;
   if (user) {
-    return `<a href="account.html" class="login">Account</a><a href="#" class="${ctaClass}" data-auth-logout>Log out</a>`;
+    return `${cartLink}<a href="account.html" class="login">Account</a><a href="#" class="${ctaClass}" data-auth-logout>Log out</a>`;
   }
-  return `<a href="login.html" class="login">Log in</a><a href="signup.html" class="${ctaClass}">Sign up</a>`;
+  return `${cartLink}<a href="login.html" class="login">Log in</a><a href="signup.html" class="${ctaClass}">Sign up</a>`;
 }
 
 export async function initAuthNavigation() {
@@ -39,6 +40,8 @@ export async function initAuthNavigation() {
     console.warn("KULEXO auth navigation unavailable:", error);
   }
   nav.innerHTML = navMarkup(user, ctaClass);
+  const { initCartCount } = await import("./cart.js");
+  initCartCount();
   nav.querySelector("[data-auth-logout]")?.addEventListener("click", async event => {
     event.preventDefault();
     if (!isSupabaseConfigured) return;
