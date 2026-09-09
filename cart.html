@@ -4,6 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Your cart — KULEXO</title>
+  <meta name="description" content="Review your selected KULEXO premium design products.">
+  <link rel="canonical" href="https://kulwantsingh-cyber.github.io/kulexo-website/cart.html">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/css/site.css">
   <style>
     :root{--ink:#101114;--bg:#f7f7f5;--surface:#fff;--muted:#697080;--line:#e4e4e8;--accent:#635bff}
     *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 Arial,Helvetica,sans-serif}
@@ -14,7 +18,7 @@
 <body>
   <header class="nav"><div class="nav-inner"><a class="logo" href="index.html">KUL<span>EX</span>O</a><nav><a class="cart-link" href="cart.html">Cart <span class="count" data-cart-count hidden>0</span></a></nav></div></header>
   <main><div class="eyebrow">KULEXO CHECKOUT</div><h1>Your cart.</h1><p class="muted">Premium products stay in your browser until secure checkout is configured.</p>
-    <div class="layout"><section class="panel" id="cartItems"><p class="empty">Loading cart…</p></section><aside class="panel"><h2>Order summary</h2><p id="cartSummary" class="muted">Loading…</p><p class="notice">Checkout is not live yet. No payment will be attempted until server-side Stripe configuration and product prices are available.</p><a class="button" href="checkout.html">Continue to checkout</a></aside></div>
+    <div class="layout"><section class="panel" id="cartItems"><p class="empty">Loading cart…</p></section><aside class="panel"><h2>Order summary</h2><p id="cartSummary" class="muted">Loading…</p><p class="notice">Checkout is staging-only. No live payment or public paid file is used.</p><a class="button" id="checkoutLink" href="checkout.html" aria-disabled="true">Continue to checkout</a></aside></div>
   </main>
   <script type="module">
     import { getCartProducts, removeFromCart, initCartCount } from "./assets/js/cart.js";
@@ -23,7 +27,10 @@
     const items = document.getElementById("cartItems"), summary = document.getElementById("cartSummary");
     async function render() {
       const products = await getCartProducts();
-      if (!products.length) { items.innerHTML = '<p class="empty">Your cart is empty. <a href="designs.html">Browse premium designs.</a></p>'; summary.textContent = "No products selected."; return; }
+      const checkoutLink = document.getElementById("checkoutLink");
+      if (!products.length) { items.innerHTML = '<p class="empty">Your cart is empty. <a href="designs.html">Browse premium designs.</a></p>'; summary.textContent = "No products selected."; checkoutLink.setAttribute("aria-disabled", "true"); checkoutLink.tabIndex = -1; return; }
+      checkoutLink.removeAttribute("aria-disabled");
+      checkoutLink.tabIndex = 0;
       items.innerHTML = products.map(product => `<article class="item"><div><h2>${product.name}</h2><p class="muted">${product.category} · ${formatProductPrice(product)}</p></div><button class="remove" type="button" data-remove="${product.id}">Remove</button></article>`).join("");
       summary.textContent = `${products.length} premium product${products.length === 1 ? "" : "s"} selected.`;
       items.querySelectorAll("[data-remove]").forEach(button => button.addEventListener("click", () => { removeFromCart(button.dataset.remove); render(); }));

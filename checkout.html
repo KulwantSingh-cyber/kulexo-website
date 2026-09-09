@@ -1,14 +1,27 @@
 <!doctype html>
 <html lang="en">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Checkout — KULEXO</title><style>:root{--ink:#101114;--bg:#f7f7f5;--muted:#697080;--accent:#635bff}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 Arial,Helvetica,sans-serif}.nav{background:var(--ink);padding:18px 6%}.nav-inner{max-width:760px;margin:auto;display:flex;justify-content:space-between}.nav a{color:#fff}.logo{font-weight:900;text-decoration:none;font-size:22px}.logo span{color:#b8b2ff}main{max-width:760px;margin:auto;padding:70px 24px}.eyebrow{color:var(--accent);font-size:12px;font-weight:800;letter-spacing:1.2px}.panel{margin-top:18px;background:#fff;border:1px solid #e4e4e8;padding:28px}.notice{background:#f0efff;padding:16px}.muted{color:var(--muted)}a.button{display:inline-block;background:var(--ink);color:#fff;text-decoration:none;padding:13px 16px;font-weight:800}</style></head>
-<body><header class="nav"><div class="nav-inner"><a class="logo" href="index.html">KUL<span>EX</span>O</a><a href="cart.html">Back to cart</a></div></header><main><div class="eyebrow">SECURE CHECKOUT</div><h1>Continue to Stripe Test Mode.</h1><section class="panel"><p class="notice">This staging flow only redirects to Stripe Test Mode. No live keys, live charges, or paid files are used.</p><form id="checkoutForm"><label for="email">Email for order updates <span aria-hidden="true">*</span></label><input id="email" name="email" type="email" autocomplete="email" required><button class="button" type="submit">Open test checkout</button></form><p id="checkoutMessage" class="muted" aria-live="polite"></p></section></main><script type="module">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Checkout — KULEXO</title><meta name="description" content="Secure staging checkout for selected KULEXO premium designs."><link rel="canonical" href="https://kulwantsingh-cyber.github.io/kulexo-website/checkout.html"><link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/css/site.css"><style>:root{--ink:#101114;--bg:#f7f7f5;--muted:#697080;--accent:#635bff}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 Arial,Helvetica,sans-serif}.nav{background:var(--ink);padding:18px 6%}.nav-inner{max-width:760px;margin:auto;display:flex;justify-content:space-between;gap:20px}.nav a{color:#fff}.logo{font-weight:900;text-decoration:none;font-size:22px}.logo span{color:#b8b2ff}main{max-width:760px;margin:auto;padding:70px 24px}.eyebrow{color:var(--accent);font-size:12px;font-weight:800;letter-spacing:1.2px}.panel{margin-top:18px;background:#fff;border:1px solid #e4e4e8;padding:28px;box-shadow:var(--k-shadow)}.notice{background:#f0efff;padding:16px}.muted{color:var(--muted)}label{display:block;margin:20px 0 7px;font-weight:700}input{width:100%;padding:13px;border:1px solid #b7bac3;border-radius:10px}button{margin-top:18px;border:0;border-radius:10px;background:var(--ink);color:#fff;padding:13px 16px;font-weight:800;cursor:pointer}</style></head>
+<body><header class="nav"><div class="nav-inner"><a class="logo" href="index.html">KUL<span>EX</span>O</a><a href="cart.html">Back to cart</a></div></header><main><div class="eyebrow">SECURE CHECKOUT</div><h1>Continue to staging checkout.</h1><section class="panel"><p class="notice">This flow is disabled until Stripe Test Mode prices and server configuration exist. No live keys, live charges, or paid files are used.</p><form id="checkoutForm"><label for="email">Email for order updates <span aria-hidden="true">*</span></label><input id="email" name="email" type="email" autocomplete="email" required><button type="submit">Open staging checkout</button></form><p id="checkoutMessage" class="muted" aria-live="polite"></p></section></main><script type="module">
     import { getCartProducts, clearCart } from "./assets/js/cart.js";
     import { createCheckoutSession } from "./assets/js/commerce.js";
     import { getCurrentUser } from "./assets/js/auth.js";
     const form = document.getElementById("checkoutForm");
     const message = document.getElementById("checkoutMessage");
+    const products = await getCartProducts().catch(() => []);
     const user = await getCurrentUser().catch(() => null);
     if (user?.email) { form.email.value = user.email; form.email.readOnly = true; }
+    const checkoutReady = products.length > 0 && products.every(product =>
+      product.product?.stripe_price_id?.startsWith("price_") &&
+      Number.isInteger(product.product.price_minor) &&
+      product.product.price_minor >= 0 &&
+      typeof product.product.currency === "string"
+    );
+    if (!products.length || !checkoutReady) {
+      form.querySelector("button").disabled = true;
+      message.textContent = products.length
+        ? "Staging checkout is waiting for configured Stripe Test Mode prices."
+        : "Your cart is empty. Return to the cart to select a premium design.";
+    }
     form.addEventListener("submit", async event => {
       event.preventDefault();
       const products = await getCartProducts();
