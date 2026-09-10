@@ -59,3 +59,330 @@ button:disabled { cursor: wait; opacity: .62; transform: none !important; }
   h1 { letter-spacing: -2px !important; }
   .btn, button, .button { min-height: 44px; }
 }
+
+/* KULEXO visual system: shared across the marketing and catalogue surfaces. */
+.nav {
+  border-bottom-color: rgba(16, 17, 20, .10) !important;
+  box-shadow: 0 8px 30px rgba(16, 17, 20, .04);
+}
+.nav-inner {
+  width: min(1180px, calc(100% - 48px)) !important;
+  min-height: 74px !important;
+}
+.logo {
+  color: var(--k-ink);
+  font-size: 24px !important;
+  letter-spacing: -.055em !important;
+}
+.nav-links a,
+.login {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
+.nav-links a { color: var(--k-ink) !important; }
+.nav-actions { min-height: 44px; }
+.nav-cta,
+.btn-primary,
+.btn-dark,
+.btn-accent,
+.primary-btn,
+.cta-btn {
+  box-shadow: 0 10px 22px rgba(16, 17, 20, .12);
+}
+.nav-cta:hover,
+.btn-primary:hover,
+.btn-dark:hover,
+.primary-btn:hover,
+.cta-btn:hover {
+  box-shadow: 0 14px 28px rgba(16, 17, 20, .18);
+}
+
+/* Home */
+.hero {
+  padding-top: clamp(64px, 8vw, 108px) !important;
+  padding-bottom: clamp(58px, 7vw, 92px) !important;
+}
+.hero-grid { gap: clamp(34px, 5vw, 72px) !important; }
+.hero h1,
+.library-hero h1,
+.detail-info h1 {
+  text-wrap: balance;
+}
+.hero-copy,
+.library-hero .hero-copy,
+.detail-info .intro {
+  max-width: 64ch !important;
+  line-height: 1.7 !important;
+}
+.hero-visual {
+  min-height: clamp(360px, 42vw, 510px) !important;
+  border: 1px solid rgba(255,255,255,.12);
+  box-shadow: 0 28px 70px rgba(16, 17, 20, .16);
+}
+.kulexo-category-grid {
+  gap: 16px !important;
+}
+.kulexo-category-card,
+.design-card,
+.related-card {
+  border-color: var(--k-line) !important;
+  box-shadow: 0 12px 34px rgba(16, 17, 20, .045);
+}
+.kulexo-category-card:hover,
+.design-card:hover,
+.related-card:hover {
+  box-shadow: 0 22px 48px rgba(16, 17, 20, .12) !important;
+}
+.category-info,
+.design-info,
+.related-content {
+  background: var(--k-surface);
+}
+footer {
+  margin-top: clamp(64px, 8vw, 104px);
+  padding: 54px 0 26px !important;
+  background: var(--k-ink);
+  color: #fff;
+}
+footer .footer-grid,
+footer .footer-inner {
+  width: min(1180px, calc(100% - 48px));
+  margin: 0 auto;
+  gap: 34px !important;
+}
+footer .footer-brand p,
+footer .footer-column p,
+footer .footer-col p {
+  color: #aeb2c0 !important;
+  max-width: 34ch;
+  line-height: 1.7;
+}
+footer .footer-col h4,
+footer .footer-column h4 {
+  color: #fff;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  font-size: 11px;
+}
+footer .footer-col a,
+footer .footer-column a {
+  color: #c9cbd4 !important;
+  min-height: 32px;
+  display: inline-flex;
+  align-items: center;
+}
+footer .footer-col a:hover,
+footer .footer-column a:hover {
+  color: #fff !important;
+}
+footer .copyright,
+footer .footer-bottom {
+  width: min(1180px, calc(100% - 48px));
+  margin: 32px auto 0;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255,255,255,.14);
+  color: #8f93a1 !important;
+}
+
+/* Catalogue */
+.library-hero {
+  padding-top: clamp(64px, 8vw, 104px) !important;
+  padding-bottom: clamp(42px, 6vw, 72px) !important;
+}
+.search-box {
+  border-color: #cfd1d8 !important;
+  box-shadow: 0 14px 34px rgba(16, 17, 20, .08) !important;
+}
+.filter {
+  min-height: 42px;
+}
+.design-grid {
+  gap: clamp(16px, 2vw, 24px) !important;
+}
+.design-card {
+  border-radius: 20px !important;
+}
+.design-card .design-visual {
+  min-height: 280px;
+}
+.design-card .design-info {
+  min-height: 86px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.design-card[data-design-id="kulexo-003"],
+.design-card[data-design-id="kulexo-005"] {
+  border-color: rgba(99, 91, 255, .42) !important;
+}
+.design-card[data-design-id="kulexo-003"] .design-info h3::after,
+.design-card[data-design-id="kulexo-005"] .design-info h3::after {
+  content: "  PREMIUM";
+  color: var(--k-accent);
+  font-size: 10px;
+  letter-spacing: .08em;
+  vertical-align: middle;
+}
+.preview-btn {
+  min-height: 44px;
+  box-shadow: 0 12px 26px rgba(16, 17, 20, .18);
+}
+
+/* Detail */
+.breadcrumb {
+  padding-top: 28px !important;
+}
+.detail {
+  padding-bottom: clamp(64px, 9vw, 112px) !important;
+}
+.detail-grid {
+  gap: clamp(34px, 6vw, 76px) !important;
+}
+.visual-wrap {
+  top: 96px !important;
+}
+.detail-info {
+  padding-top: 8px;
+}
+.detail-info .meta {
+  gap: 8px !important;
+  flex-wrap: wrap;
+}
+.detail-info .meta span {
+  border: 1px solid var(--k-line);
+  border-radius: 999px;
+  padding: 7px 11px;
+  background: rgba(255,255,255,.7);
+}
+.actions {
+  gap: 12px !important;
+  flex-wrap: wrap;
+}
+.primary-btn,
+.secondary-btn {
+  min-height: 48px;
+}
+.info-card {
+  border-color: var(--k-line) !important;
+  box-shadow: 0 12px 30px rgba(16, 17, 20, .045);
+}
+.related {
+  padding-top: clamp(56px, 8vw, 92px) !important;
+}
+.cta-box,
+.library-cta {
+  box-shadow: 0 24px 60px rgba(16, 17, 20, .15);
+}
+
+/* Touch and intermediate widths. */
+@media (hover: none), (pointer: coarse) {
+  .design-card:hover,
+  .related-card:hover,
+  .kulexo-category-card:hover {
+    transform: none !important;
+  }
+  .design-card .preview-btn {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+@media (max-width: 900px) {
+  .nav-inner {
+    gap: 16px !important;
+  }
+  .nav-links {
+    gap: 16px !important;
+  }
+  .hero-grid,
+  .detail-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .hero-visual {
+    max-width: 720px;
+    width: 100%;
+    margin: 0 auto;
+  }
+  .visual-wrap {
+    position: relative !important;
+    top: auto !important;
+  }
+  .detail-grid {
+    gap: 38px !important;
+  }
+  .design-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+@media (max-width: 640px) {
+  .nav-inner {
+    width: min(100% - 32px, 1180px) !important;
+    min-height: 64px !important;
+  }
+  .nav-links {
+    order: 3;
+    width: 100%;
+    justify-content: space-between;
+    padding-top: 8px;
+    border-top: 1px solid var(--k-line);
+  }
+  .nav-actions {
+    margin-left: auto;
+  }
+  .nav-actions .login {
+    display: none;
+  }
+  .hero h1,
+  .library-hero h1,
+  .detail-info h1 {
+    font-size: clamp(40px, 12vw, 60px) !important;
+  }
+  .hero-buttons,
+  .actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .hero-buttons .btn,
+  .actions button {
+    width: 100%;
+    text-align: center;
+  }
+  .design-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .design-card .design-visual {
+    min-height: 250px;
+  }
+  .search-box {
+    align-items: stretch;
+    flex-wrap: wrap;
+  }
+  .search-box input {
+    min-height: 46px;
+    flex-basis: calc(100% - 44px);
+  }
+  .search-box button {
+    width: 100%;
+  }
+  .filters {
+    overflow-x: auto;
+    flex-wrap: nowrap !important;
+    padding-bottom: 4px;
+    justify-content: flex-start !important;
+  }
+  .filter {
+    flex: 0 0 auto;
+  }
+  .detail-info .meta span {
+    font-size: 12px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .design-card,
+  .related-card,
+  .kulexo-category-card,
+  .btn,
+  .nav-cta {
+    transition: none !important;
+  }
+}
