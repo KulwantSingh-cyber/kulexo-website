@@ -34,3 +34,9 @@ and keep private storage paths and recovery token hashes out of browser response
 
 The current staging implementation expects configured `public.products` rows and a
 private Storage bucket. It does not use catalogue prices or client-supplied amounts.
+
+Resend is used only from server-side functions. `recover-guest-purchase` sends
+short-lived, one-time recovery links after it creates their hashed tokens.
+After paid entitlement fulfillment, `stripe-webhook` sends an order-ready email
+when `RESEND_API_KEY` and `RECOVERY_EMAIL_FROM` are configured. A Resend failure
+is logged without changing the already-completed payment or entitlement state.

@@ -1,6 +1,7 @@
 import { configuredSiteOrigin, siteOrigin, stripeConfig } from "../_shared/config.ts";
 import { adminClient } from "../_shared/supabase.ts";
 import { stripeEventPayload } from "../_shared/stripe.ts";
+import { sendResendEmail } from "../_shared/email.ts";
 import { json, badRequest, notConfigured, preflight, serverError } from "../_shared/response.ts";
 
 Deno.serve(async request => {
@@ -54,11 +55,12 @@ Deno.serve(async request => {
         fulfilled_at: status === "paid" ? new Date().toISOString() : null
       })
       .eq("stripe_checkout_session_id", session.id)
-      .select("id,user_id,customer_email")
+      .select("id,order_number,user_id,customer_email")
       .maybeSingle();
     if (orderError) throw orderError;
     if (!order) return badRequest("Unknown checkout session.", origin);
     if (isPaid) {
+      const shouldSendOrderEmail = existingOrder.status !== "paid";
       const { data: items, error: itemError } = await client
         .from("order_items")
         .select("id,product_id")
@@ -83,6 +85,30 @@ Deno.serve(async request => {
             storage_path: product.storage_path
           }, { onConflict: "order_item_id", ignoreDuplicates: true });
         if (entitlementError) throw entitlementError;
+      }
+      const resendKey = Deno.env.get("RESEND_API_KEY")?.trim();
+      const sender = Deno.env.get("RECOVERY_EMAIL_FROM")?.trim();
+      if (shouldSendOrderEmail && resendKey && sender && order.customer_email) {
+        try {
+          await sendResendEmail(resendKey, {
+            from: sender,
+            to: [order.customer_email],
+            subject: "Your KULEXO order is ready",
+            text: [
+              `Your KULEXO order ${order.order_number} is ready.`,
+              "",
+              `Sign in to view your secure downloads: ${config.siteUrl}/downloads.html`,
+              `If you checked out as a guest, request a recovery link here: ${config.siteUrl}/purchase-recovery.html`
+            ].join("\n"),
+            html: [
+              `<p>Your KULEXO order <strong>${order.order_number}</strong> is ready.</p>`,
+              `<p><a href="${config.siteUrl}/downloads.html">Sign in to view your secure downloads</a>.</p>`,
+              `<p>Checked out as a guest? <a href="${config.siteUrl}/purchase-recovery.html">Request a recovery link</a>.</p>`
+            ].join("")
+          });
+        } catch (emailError) {
+          console.error("KULEXO order confirmation email failed", emailError);
+        }
       }
     }
     return json({ received: true, staging: true }, 200, origin);

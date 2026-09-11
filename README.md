@@ -99,6 +99,14 @@ Future payments, protected downloads, webhooks, and email delivery must run in
 server-side Supabase Edge Functions with secrets configured in Supabase—not in this
 static website.
 
+Customer email delivery uses Resend from the server-side Edge Functions. Purchase
+recovery requires `RESEND_API_KEY` and `RECOVERY_EMAIL_FROM`. After a paid order
+is fulfilled, the Stripe webhook sends an order-ready email when those same
+secrets are configured; email delivery is intentionally non-blocking so a
+provider outage cannot undo payment fulfillment. The email contains links to the
+authenticated downloads page and guest purchase-recovery page, never a private
+Storage URL or source file.
+
 ## Phase 1 commerce foundation
 
 `assets/designs.json` is the authoritative catalogue. Each design now includes a

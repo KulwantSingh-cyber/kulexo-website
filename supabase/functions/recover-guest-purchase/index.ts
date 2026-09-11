@@ -1,6 +1,7 @@
 import { configuredSiteOrigin, siteOrigin, stagingConfig, requiredEnv } from "../_shared/config.ts";
 import { adminClient } from "../_shared/supabase.ts";
 import { hashToken, randomToken } from "../_shared/tokens.ts";
+import { sendResendEmail } from "../_shared/email.ts";
 import { badRequest, json, notConfigured, preflight, serverError } from "../_shared/response.ts";
 
 Deno.serve(async request => {
@@ -37,17 +38,13 @@ Deno.serve(async request => {
       recoveryLinks.push(`${siteUrl}/purchase-recovery.html?token=${encodeURIComponent(token)}`);
     }
     if (entitlements?.length) {
-      const emailResponse = await fetch("https://api.resend.com/emails", {
-        method: "POST",
-        headers: { authorization: `Bearer ${resendKey}`, "content-type": "application/json" },
-        body: JSON.stringify({
-          from: sender,
-          to: [email],
-          subject: "Your KULEXO staging download link",
-          html: `<p>Use a staging download link within 30 minutes:</p>${recoveryLinks.map(link => `<p><a href="${link}">${link}</a></p>`).join("")}`
-        })
+      await sendResendEmail(resendKey, {
+        from: sender,
+        to: [email],
+        subject: "Your KULEXO staging download link",
+        text: `Use a staging download link within 30 minutes:\n\n${recoveryLinks.join("\n\n")}`,
+        html: `<p>Use a staging download link within 30 minutes:</p>${recoveryLinks.map(link => `<p><a href="${link}">${link}</a></p>`).join("")}`
       });
-      if (!emailResponse.ok) throw new Error("Recovery email provider rejected the request.");
     }
     return json({ accepted: true, staging: true }, 200, origin);
   } catch (error) {
