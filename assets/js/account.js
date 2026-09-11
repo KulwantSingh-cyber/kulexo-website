@@ -1,6 +1,8 @@
 import { requireAuthenticatedUser, initAuthNavigation } from "./auth.js";
 import { getSavedDesignIds, toggleSavedDesign } from "./saved-designs.js";
 import { requireSupabase } from "./supabase-client.js";
+import { initOrders } from "./orders.js";
+import { initCartCount } from "./cart.js";
 
 function escapeHtml(value) {
   const element = document.createElement("div");
@@ -62,6 +64,8 @@ async function initAccount() {
   const user = await requireAuthenticatedUser();
   if (!user) return;
   await initAuthNavigation();
+  initCartCount();
+  initOrders();
 
   document.getElementById("accountEmail").textContent = user.email || "";
   const { data: profile, error } = await requireSupabase()

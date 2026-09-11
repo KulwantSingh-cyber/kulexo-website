@@ -474,6 +474,18 @@
       margin-bottom: 4px;
     }
 
+    .add-cart-card {
+      margin-top: 14px;
+      border: 1px solid var(--dark);
+      border-radius: 9px;
+      padding: 8px 11px;
+      background: white;
+      color: var(--dark);
+      font-size: 12px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
     .design-meta {
       display: flex;
       justify-content: space-between;
@@ -817,6 +829,7 @@
         <a href="login.html" class="login">Log in</a>
         <a href="signup.html" class="btn btn-dark">Sign up</a>
       </div>
+      <a class="login" href="cart.html">Cart (<span data-cart-count>0</span>)</a>
 
     </div>
   </header>
@@ -1402,8 +1415,11 @@
   <script type="module">
     import { initAuthNavigation } from "./assets/js/auth.js";
     import { initDesignGridFavorites } from "./assets/js/saved-designs.js";
+    import { initCartCount, initCatalogCartActions } from "./assets/js/cart.js";
     initAuthNavigation();
+    initCartCount();
     initDesignGridFavorites();
+    initCatalogCartActions().catch(error => console.warn("KULEXO cart actions unavailable:", error));
   </script>
 
 </body>

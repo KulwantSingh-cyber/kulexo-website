@@ -735,6 +735,7 @@
         <a href="login.html" class="login">Log in</a>
         <a href="signup.html" class="nav-cta">Sign up</a>
       </div>
+      <a class="login" href="cart.html">Cart (<span data-cart-count>0</span>)</a>
 
     </div>
   </header>
@@ -816,8 +817,12 @@
             </div>
 
             <div class="actions">
-              <button class="primary-btn" onclick="showMessage()">
+              <button class="primary-btn" id="designPrimaryAction" onclick="showMessage()">
                 View / Download Design →
+              </button>
+
+              <button class="secondary-btn" id="addToCartButton" onclick="addToCart()" hidden>
+                Add to cart
               </button>
 
               <button class="secondary-btn" onclick="saveDesign(this)">
@@ -1337,6 +1342,7 @@ if (infoValues[3]) infoValues[3].textContent =
     renderVisual(design);
     updateRelatedDesigns(designs);
     syncSavedState();
+    window.dispatchEvent(new CustomEvent("kulexo-design-loaded", { detail: design }));
   }
 function syncSavedState() {
   window.KulexoSavedDesigns?.sync();
@@ -1388,6 +1394,10 @@ function syncSavedState() {
   }
 
   function showMessage() {
+  if (currentDesign?.access === "premium") {
+    window.KulexoCart?.buyNow();
+    return;
+  }
   if (!currentDesign || !currentDesign.preview) return;
 
   const link = document.createElement("a");
@@ -1407,13 +1417,20 @@ async function saveDesign(button) {
   }
 }
 
+function addToCart() {
+  window.KulexoCart?.addCurrentDesign();
+}
+
   loadDesign();
 </script>
 <script type="module">
   import { initAuthNavigation } from "./assets/js/auth.js";
   import { initDetailSavedDesign } from "./assets/js/saved-designs.js";
+  import { initCartCount, initDetailCommerce } from "./assets/js/cart.js";
   initAuthNavigation();
+  initCartCount();
   initDetailSavedDesign(() => currentDesign?.id);
+  initDetailCommerce(() => currentDesign);
 </script>
 
 </body>
