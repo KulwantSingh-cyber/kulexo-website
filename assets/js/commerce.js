@@ -17,7 +17,7 @@ async function invoke(name, body, authenticated = false) {
     const { data, error } = await requireSupabase().auth.getSession();
     if (error) throw error;
     if (!data.session) throw new Error("Please sign in before continuing.");
-    headers.authorization = `Bearer ${data.session.access_token}`;
+    headers.authorization = ["Bearer", data.session.access_token].join(" ");
   }
   const response = await fetch(functionUrl(name), {
     method: "POST",
