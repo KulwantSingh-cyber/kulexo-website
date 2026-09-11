@@ -98,3 +98,30 @@ client-visible configuration:
 Future payments, protected downloads, webhooks, and email delivery must run in
 server-side Supabase Edge Functions with secrets configured in Supabase—not in this
 static website.
+
+Customer email delivery uses Resend from the server-side Edge Functions. Purchase
+recovery requires `RESEND_API_KEY` and `RECOVERY_EMAIL_FROM`. After a paid order
+is fulfilled, the Stripe webhook sends an order-ready email when those same
+secrets are configured; email delivery is intentionally non-blocking so a
+provider outage cannot undo payment fulfillment. The email contains links to the
+authenticated downloads page and guest purchase-recovery page, never a private
+Storage URL or source file.
+
+## Phase 1 commerce foundation
+
+`assets/designs.json` is the authoritative catalogue. Each design now includes a
+`product` object describing whether it is purchasable, its not-yet-configured
+price/currency/Stripe price ID, and its download policy. Premium products use
+`entitlement-only` and intentionally have no public storage path.
+
+The browser cart is local-only and accepts configured premium product records.
+`cart.html`, `checkout.html`, `order-success.html`, `order-cancel.html`,
+`orders.html`, `downloads.html`, and `purchase-recovery.html` provide safe
+non-payment foundations. Checkout and protected downloads remain disabled until
+server-side configuration exists.
+
+Edge Function scaffolds are under `supabase/functions/` for checkout creation,
+Stripe webhooks, secure downloads, and guest purchase recovery. They return an
+explicit not-configured response until the required Supabase and Stripe secrets,
+private paid files, and product prices are supplied. No browser page grants
+premium access from local state or URL parameters.

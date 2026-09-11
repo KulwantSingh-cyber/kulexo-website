@@ -1,1 +1,32 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Purchase recovery — KULEXO</title><style>body{margin:0;display:grid;min-height:100vh;place-items:center;background:#f7f7f5;color:#101114;font-family:Inter,Arial,sans-serif}.card{width:min(480px,calc(100% - 40px));background:#fff;border:1px solid #e3e4e8;border-radius:20px;padding:38px}.eyebrow{font-size:11px;color:#635bff;font-weight:800;letter-spacing:1.2px}h1{font-size:36px;letter-spacing:-1.5px;margin:10px 0}p{color:#697080;line-height:1.55}label{display:block;font-size:13px;font-weight:800;margin:22px 0 7px}input,button{width:100%;padding:13px;font:inherit}input{border:1px solid #101114}button{margin-top:16px;border:0;border-radius:10px;background:#101114;color:#fff;font-weight:800}.message{min-height:24px;font-size:14px}a{color:#101114;font-weight:800}</style></head><body><main class="card"><div class="eyebrow">PURCHASE RECOVERY</div><h1>Find a purchase.</h1><p>When recovery is connected, we’ll securely send eligible download access to your checkout email.</p><form id="recoveryForm"><label for="email">Checkout email</label><input id="email" type="email" autocomplete="email" required><button type="submit">Send recovery email</button></form><p class="message" id="recoveryMessage" aria-live="polite"></p><a href="index.html">Back to KULEXO</a></main><script type="module">import{initPurchaseRecovery}from"./assets/js/purchase-recovery.js";initPurchaseRecovery();</script></body></html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Recover a purchase — KULEXO</title><meta name="description" content="Recover access to an eligible KULEXO guest purchase."><link rel="canonical" href="https://kulwantsingh-cyber.github.io/kulexo-website/purchase-recovery.html"><link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/css/site.css"><style>body{margin:0;background:var(--k-bg);color:var(--k-ink);font:16px/1.5 Arial;padding:64px 24px}main{max-width:560px;margin:auto;background:#fff;border:1px solid var(--k-line);border-radius:var(--k-radius);padding:30px;box-shadow:var(--k-shadow)}.eyebrow{color:var(--k-accent);font-size:12px;font-weight:800;letter-spacing:1.2px}label{display:block;font-weight:700;margin:18px 0 6px}input{width:100%;padding:12px;border:1px solid #b7bac3;border-radius:10px;box-sizing:border-box}button{margin-top:18px;background:var(--k-ink);color:#fff;border:0;border-radius:10px;padding:13px 16px;font-weight:800;cursor:pointer}p{color:var(--k-muted)}a{color:var(--k-ink);font-weight:800}</style></head><body><main><div class="eyebrow">PURCHASE RECOVERY</div><h1>Recover a guest purchase.</h1><p>Enter the email used at checkout. If an eligible order exists, a short-lived recovery link will be sent.</p><form id="recoveryForm"><label for="email">Purchase email</label><input id="email" name="email" type="email" autocomplete="email" required><button type="submit">Request recovery link</button></form><p id="message" aria-live="polite"></p><div id="downloadArea"></div><p><a href="designs.html">Browse designs</a></p><script type="module">
+    import { requestPurchaseRecovery, createGuestDownload } from "./assets/js/commerce.js";
+    const form = document.getElementById("recoveryForm");
+    const message = document.getElementById("message");
+    const token = new URLSearchParams(location.search).get("token");
+    if (token) {
+      form.hidden = true;
+      message.textContent = "Preparing your secure staging download…";
+      createGuestDownload(token).then(result => {
+        const link = document.createElement("a");
+        link.href = result.download_url;
+        link.textContent = "Download purchased file";
+        link.target = "_blank";
+        link.rel = "noopener";
+        document.getElementById("downloadArea").append(link);
+        message.textContent = "The secure link expires shortly.";
+      }).catch(error => { message.textContent = error.message; });
+    }
+    form.addEventListener("submit", async event => {
+      event.preventDefault();
+      const button = form.querySelector("button");
+      button.disabled = true;
+      message.textContent = "Requesting a recovery email…";
+      try {
+        await requestPurchaseRecovery(form.email.value.trim());
+        message.textContent = "If an eligible staging purchase exists, a recovery email has been sent.";
+      } catch (error) {
+        message.textContent = error.message;
+        button.disabled = false;
+      }
+    });
+  </script></main></body></html>

@@ -9,6 +9,12 @@
     name="description"
     content="Explore the Modern Performance Jersey design concept on KULEXO."
   >
+  <link rel="canonical" href="https://kulwantsingh-cyber.github.io/kulexo-website/design-detail.html">
+  <meta property="og:title" content="KULEXO design concept">
+  <meta property="og:description" content="Explore a professional KULEXO apparel design concept.">
+  <meta property="og:type" content="product">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/css/site.css">
 
   <style>
     * {
@@ -817,7 +823,7 @@
             </div>
 
             <div class="actions">
-              <button class="primary-btn" id="designPrimaryAction" onclick="showMessage()">
+<button class="primary-btn" id="designPrimaryAction" onclick="showMessage()" aria-describedby="downloadNotice">
                 View / Download Design →
               </button>
 
@@ -829,6 +835,7 @@
                 ♡ Save Design
               </button>
             </div>
+            <p id="downloadNotice" class="download-notice" aria-live="polite"></p>
 
 
             <div class="info-card">
@@ -1327,6 +1334,12 @@
           : design.collection;
     }
     if (meta[3]) meta[3].textContent = formatAccess(design.access);
+    const primaryAction = document.querySelector(".primary-btn");
+    if (primaryAction) {
+      primaryAction.textContent = design.access === "premium"
+        ? "Add to cart →"
+        : "View / Download Design →";
+    }
 
     const infoCards = document.querySelectorAll(".detail-info .info-card");
 const infoValues = infoCards[0]
@@ -1399,8 +1412,18 @@ function syncSavedState() {
     return;
   }
   if (!currentDesign || !currentDesign.preview) return;
+    const notice = document.getElementById("downloadNotice");
+    if (
+      currentDesign.access === "premium" ||
+      (currentDesign.product && currentDesign.product.download_policy !== "public-preview")
+    ) {
+      if (notice) {
+        notice.textContent = "This premium file is protected. Secure checkout and entitlement delivery are not live yet.";
+      }
+      return;
+    }
 
-  const link = document.createElement("a");
+    const link = document.createElement("a");
   link.href = currentDesign.preview;
   link.download = `${currentDesign.id || "kulexo-design"}-preview.svg`;
   document.body.appendChild(link);
@@ -1426,11 +1449,23 @@ function addToCart() {
 <script type="module">
   import { initAuthNavigation } from "./assets/js/auth.js";
   import { initDetailSavedDesign } from "./assets/js/saved-designs.js";
-  import { initCartCount, initDetailCommerce } from "./assets/js/cart.js";
+import { getDesignById } from "./assets/js/catalogue.js";
+  import { initCartCount, addToCart } from "./assets/js/cart.js";
   initAuthNavigation();
   initCartCount();
   initDetailSavedDesign(() => currentDesign?.id);
-  initDetailCommerce(() => currentDesign);
+  const primaryAction = document.querySelector(".primary-btn");
+  primaryAction?.addEventListener("click", async () => {
+    if (currentDesign?.access !== "premium") return;
+    const product = await getDesignById(currentDesign.id);
+    if (!product?.product?.purchasable) return;
+    try {
+      await addToCart(product.id);
+      document.getElementById("downloadNotice").textContent = "Added to cart. Checkout is not live yet.";
+    } catch (error) {
+      document.getElementById("downloadNotice").textContent = error.message;
+    }
+  });
 </script>
 
 </body>

@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Secure downloads — KULEXO</title>
+  <meta name="description" content="Create short-lived secure download links for your KULEXO purchases.">
+  <link rel="canonical" href="https://kulwantsingh-cyber.github.io/kulexo-website/downloads.html">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/css/site.css">
+  <style>body{margin:0;background:var(--k-bg);color:var(--k-ink);font:16px/1.5 Arial,Helvetica,sans-serif}main{max-width:860px;margin:0 auto;padding:72px 24px}.panel{background:#fff;border:1px solid var(--k-line);border-radius:var(--k-radius);padding:28px;box-shadow:var(--k-shadow)}.eyebrow{color:var(--k-accent);font-size:12px;font-weight:800;letter-spacing:1.2px}.download{display:flex;justify-content:space-between;gap:16px;align-items:center;border-top:1px solid var(--k-line);padding:18px 0}.download button{background:var(--k-ink);color:#fff;border:0;border-radius:10px;padding:11px 14px;font-weight:800;cursor:pointer}.muted{color:var(--k-muted)}a{color:var(--k-ink);font-weight:800}@media(max-width:600px){.download{align-items:flex-start;flex-direction:column}}</style>
+</head>
+<body>
+  <main>
+    <div class="eyebrow">SECURE DOWNLOADS</div>
+    <h1>Your downloads.</h1>
+    <section class="panel">
+      <p class="muted">Links are generated only after the server verifies an active entitlement and expire after five minutes.</p>
+      <div id="downloadList">Loading eligible downloads…</div>
+      <p id="message" class="muted" aria-live="polite"></p>
+      <p><a href="account.html">Back to account</a></p>
+    </section>
+  </main>
+  <script type="module">
+    import { requireAuthenticatedUser } from "./assets/js/auth.js";
+    import { requireSupabase } from "./assets/js/supabase-client.js";
+    import { createAuthenticatedDownload } from "./assets/js/commerce.js";
+    const list = document.getElementById("downloadList");
+    const message = document.getElementById("message");
+    const user = await requireAuthenticatedUser();
+    if (user) {
+      try {
+        const { data, error } = await requireSupabase().from("orders")
+          .select("order_number,status,order_items(product_id,product_name)")
+          .eq("status", "paid")
+          .order("created_at", { ascending: false });
+        if (error) throw error;
+        const items = (data || []).flatMap(order => (order.order_items || []).map(item => ({ ...item, order_number: order.order_number })));
+        if (!items.length) list.textContent = "No eligible orders found.";
+        else {
+          list.innerHTML = items.map(item => `<div class="download"><span><strong>${item.product_name}</strong><br><small class="muted">${item.order_number}</small></span><button type="button" data-product-id="${item.product_id}">Create secure link</button></div>`).join("");
+          list.querySelectorAll("[data-product-id]").forEach(button => button.addEventListener("click", async () => {
+            button.disabled = true;
+            try {
+              const result = await createAuthenticatedDownload(button.dataset.productId);
+              window.open(result.download_url, "_blank", "noopener");
+              message.textContent = "Secure link created. It expires in five minutes.";
+            } catch (error) {
+              message.textContent = error.message;
+              button.disabled = false;
+            }
+          }));
+        }
+      } catch (error) {
+        list.textContent = "Orders could not be loaded.";
+        message.textContent = error.message;
+      }
+    }
+  </script>
+</body>
+</html>

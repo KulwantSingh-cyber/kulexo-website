@@ -6,6 +6,12 @@
 
   <title>Design Library — KULEXO</title>
   <meta name="description" content="Explore the KULEXO professional apparel and sportswear design library.">
+  <link rel="canonical" href="https://kulwantsingh-cyber.github.io/kulexo-website/designs.html">
+  <meta property="og:title" content="Design Library — KULEXO">
+  <meta property="og:description" content="Explore KULEXO apparel and sportswear design concepts.">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/css/site.css">
 
   <style>
     :root {
@@ -1415,11 +1421,27 @@
   <script type="module">
     import { initAuthNavigation } from "./assets/js/auth.js";
     import { initDesignGridFavorites } from "./assets/js/saved-designs.js";
-    import { initCartCount, initCatalogCartActions } from "./assets/js/cart.js";
+    import { getPremiumProducts, formatProductPrice } from "./assets/js/catalogue.js";
+    import { initCartCount } from "./assets/js/cart.js";
     initAuthNavigation();
     initCartCount();
     initDesignGridFavorites();
-    initCatalogCartActions().catch(error => console.warn("KULEXO cart actions unavailable:", error));
+    const premiumProducts = await getPremiumProducts();
+    premiumProducts.forEach(product => {
+      const card = document.querySelector(`[data-design-id="${product.id}"]`);
+      const visual = card?.querySelector(".design-visual");
+      if (!visual) return;
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "preview-btn";
+      button.textContent = formatProductPrice(product) === "Price coming soon"
+        ? "Price coming soon"
+        : `Add to cart · ${formatProductPrice(product)}`;
+      button.disabled = true;
+      button.title = "Checkout is not configured yet";
+      button.addEventListener("click", event => event.preventDefault());
+      visual.appendChild(button);
+    });
   </script>
 
 </body>

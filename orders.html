@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Orders — KULEXO</title>
+  <meta name="description" content="View your KULEXO order history.">
+  <link rel="canonical" href="https://kulwantsingh-cyber.github.io/kulexo-website/orders.html">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/css/site.css">
+  <style>body{margin:0;background:var(--k-bg);color:var(--k-ink);font:16px/1.5 Arial,Helvetica,sans-serif}main{max-width:860px;margin:0 auto;padding:72px 24px}.panel{background:#fff;border:1px solid var(--k-line);border-radius:var(--k-radius);padding:28px;box-shadow:var(--k-shadow)}.eyebrow{color:var(--k-accent);font-size:12px;font-weight:800;letter-spacing:1.2px}.order{padding:18px 0;border-top:1px solid var(--k-line)}.order:first-child{border-top:0}.order strong{display:block}.muted{color:var(--k-muted)}a{color:var(--k-ink);font-weight:800}.error{color:#a33}</style>
+</head>
+<body>
+  <main>
+    <div class="eyebrow">YOUR KULEXO ORDERS</div>
+    <h1>Order history.</h1>
+    <section class="panel">
+      <div id="ordersList"><p class="muted">Loading your orders…</p></div>
+      <p id="message" class="muted" aria-live="polite"></p>
+      <p><a href="account.html">Back to account</a> · <a href="purchase-recovery.html">Recover a guest purchase</a></p>
+    </section>
+  </main>
+  <script type="module">
+    import { requireAuthenticatedUser } from "./assets/js/auth.js";
+    import { requireSupabase } from "./assets/js/supabase-client.js";
+    const list = document.getElementById("ordersList");
+    const message = document.getElementById("message");
+    const user = await requireAuthenticatedUser();
+    if (user) {
+      try {
+        const { data, error } = await requireSupabase().from("orders")
+          .select("order_number,status,currency,amount_total,created_at,order_items(product_name,quantity)")
+          .order("created_at", { ascending: false });
+        if (error) throw error;
+        if (!data?.length) list.innerHTML = '<p class="muted">No orders found yet.</p>';
+        else list.innerHTML = data.map(order => `<article class="order"><strong>${order.order_number}</strong><span class="muted">${order.status} · ${order.order_items?.map(item => `${item.product_name} × ${item.quantity}`).join(", ") || "Order items pending"} · ${new Intl.NumberFormat(undefined, { style: "currency", currency: order.currency.toUpperCase() }).format(order.amount_total / 100)}</span></article>`).join("");
+      } catch (error) {
+        list.innerHTML = '<p class="error">Orders could not be loaded.</p>';
+        message.textContent = error.message;
+      }
+    }
+  </script>
+</body>
+</html>
